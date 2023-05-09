@@ -1,0 +1,2 @@
+# Can be used to execute commands just after logging in pre-shell.
+# eval "$(/opt/homebrew/bin/brew shellenv)"

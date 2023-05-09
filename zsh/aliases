@@ -1,0 +1,86 @@
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║ CONFIGURATION BLOCK                                                       ║
+# ║                                                                           ║
+# ║ Basic `ls` options                                                        ║
+# ║                                                                           ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+# alias ls="ls -aCFGl"                            # Colorized
+alias ls="ls -laH"
+
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║ CONFIGURATION BLOCK                                                       ║
+# ║                                                                           ║
+# ║ Kubernetes (k8s) Client                                                   ║
+# ║                                                                           ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+
+alias k="~/Bin/kubectl "                    # kubectl
+alias krr="/Bin/kubectl rollout replace -n $1 $2" # rollout restart
+alias kc="/usr/bin/kubectl create -f "         # Crete
+alias kd="/usr/bin/kubectl delete -f "         # Delete
+alias ke="/usr/bin/kubectl edit "              # Edit
+alias kg="/usr/bin/kubectl get "               # Get
+alias kl="/usr/bin/kubectl logs --follow "     # Follow Logs
+alias kr="/usr/bin/kubectl rollout restart "   # Restart
+alias kw="/usr/bin/kubectl get --watch "       # Watch Get
+alias kx="/usr/bin/kubectl exec -it $1 $2 -- /bin/sh"
+alias krr='~/Bin/kubectl rollout restart -n $1 deployment $2'
+alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
+alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
+
+# alias dcb="docker compose build $(pwd | awk -F'/' '{print $NF}')"
+alias dcb="docker-compose-build"
+alias dcr="docker-compose-run"
+
+
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║ CONFIGURATION BLOCK                                                       ║
+# ║                                                                           ║
+# ║ Docker Client                                                             ║
+# ║                                                                           ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+
+alias d="/usr/bin/docker "                    # docker
+alias dk="/usr/bin/docker stop --force ${PWD##*/}; /usr/local/docker rm --force ${PWD##*/}"
+# alias db="/usr/bin/docker build --tag ${PWD##*/}:build . "
+alias db='docker-build'
+alias dt="/usr/bin/docker tag "
+alias dd="/usr/bin/docker tag ${PWD##*/}:build $DOCKER_REGISTRY/${PWD##*/}:latest ; /usr/bin/docker push $DOCKER_REGISTRY/${PWD##*/}:latest "
+alias dv="echo 'Docker Host: $DOCKER_HOST' ; echo 'Docker Registry: $DOCKER_REGISTRY'"
+alias da="/usr/bin/docker "
+alias drmi="/User/mada/Bin/docker-rm-images"
+
+## Python Environment Aliases
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║ CONFIGURATION BLOCK                                                       ║
+# ║                                                                           ║
+# ║ Python Environment Aliases                                                ║
+# ║                                                                           ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+
+alias ~="source ~/Python/bin/activate"     # Activate the default venv
+alias ~~="deactivate"               # Deactivate the current venv
+
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║ CONFIGURATION BLOCK                                                       ║
+# ║                                                                           ║
+# ║ GIT Aliases                                                               ║
+# ║                                                                           ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝
+alias gs='git status'
+alias ga='git add'
+alias gp='git push'
+alias gpo='git push origin'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias gr='git branch -r'
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit -am'
+alias gd='git diff'
+alias gco='git checkout '
+alias gl='git log'
+alias gr='git remote'
+alias grs='git remote show'
+alias glo='git log --pretty="oneline"'
+alias glol='git log --graph --oneline --decorate'

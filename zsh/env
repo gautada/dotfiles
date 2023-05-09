@@ -1,0 +1,25 @@
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_RUNTIME_HOME=$HOME/.var
+
+export SCRDIR=$XDG_CONFIG_HOME/scripts
+
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+export ZSHRC=$HOME/.zshrc
+export ZDOTRC=$ZDOTDIR/rc
+export ZENV=$HOME/.zenv
+export ZDOTENV=$ZDOTDIR/env
+export ZPROFILE=$HOME/.zprofile
+export ZDOTPROFILE=$ZDOTDIR/profile
+export ZLOGIN=$HOME/.zlogin
+export ZDOTLOGIN=$ZDOTDIR/login
+export ZLOGOUT=$HOME/.zlogout
+export ZDOTLOGOUT=$ZDOTDIR/logout
+
+export HISTFILE="$HOME/.cache/history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:$SCRDIR:/usr/local/go/bin
+

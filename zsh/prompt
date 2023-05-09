@@ -1,0 +1,37 @@
+
+# Default mac os zsh prompt
+# %n@%m %1~ %#
+# https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+# https://gist.github.com/knadh/123bca5cfdae8645db750bfb49cb44b0
+
+# https://www.arp242.net/zshrc.html
+# https://www.bigeekfan.com/post/20180610_zsh_prompt_hacking/
+# https://www.apptension.com/blog-posts/shell-configuration-hack-your-zsh
+
+preexec() { timer=$(($(/bin/date +%s))) }
+
+precmd() {
+   CARAT=">"
+   # echo -e "\u2713"
+   PREPROMPT="%F{cyan}${(r:$COLUMNS::_:)%{$reset_color%}"
+   if ! [ -z $VIRTUAL_ENV ]; then
+       PREPROMPT="$PREPROMPT%F{yellow}$(basename $VIRTUAL_ENV)@🐍%F{white}:%f%F{blue}%~%f"
+   else
+       PREPROMPT="$PREPROMPT%F{yellow}%n@$(echo $HOST | awk -F '-' '{print $1}')%f%F{white}:%f%F{blue}%~%f"
+   fi
+   # CONTEXT="%F{yellow}%n@%M%f%F{white}:%f%F{blue}%~%f"
+   # VENV="%F{yellow}🐍%F{white}:%f%F{blue}%~%f"
+   print -rP "$PREPROMPT" ;
+   if [ $timer ]; then
+       now=$(($(/bin/date +%s)))
+       elapsed=$(($now - $timer))
+       export RPROMPT="%F{blue}%@%f %(?.%F{green}.%F{red})(${elapsed}s)%f"
+       unset timer
+   fi
+   if [ -z $VIRTUAL_ENV ]; then
+        export PROMPT="%(?.%F{green}.%F{red})%(!.$CARAT.)$CARAT%f "
+    else
+        export PROMPT="%(?.%F{green}.%F{red})%(!.$CARAT.)$CARAT%f "
+    fi
+}
+
