@@ -32,6 +32,9 @@ alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-mic
 alias dcb="docker-compose-build"
 alias dcr="docker-compose-run"
 
+# VIM Editor
+alias vim=/usr/bin/nvim
+
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║ CONFIGURATION BLOCK                                                       ║
