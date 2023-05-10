@@ -15,9 +15,10 @@ alias ls="ls -laH"
 # ║                                                                           ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-alias k="~/Bin/kubectl "                    # kubectl
-alias krr="/Bin/kubectl rollout replace -n $1 $2" # rollout restart
-alias kc="/usr/bin/kubectl create -f "         # Crete
+alias k="/usr/bin/kubectl"                    # kubectl
+alias krr="/usr/bin/kubectl rollout restart -n $1 deployment/$2" # rollout restart
+alias ka="/usr/bin/kubectl apply -f $1"         # Apply a manifest
+
 alias kd="/usr/bin/kubectl delete -f "         # Delete
 alias ke="/usr/bin/kubectl edit "              # Edit
 alias kg="/usr/bin/kubectl get "               # Get
