@@ -1,3 +1,4 @@
+source ~/.config/zsh/functions
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║ CONFIGURATION BLOCK                                                       ║
 # ║                                                                           ║
@@ -29,8 +30,8 @@ alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NF}')"
-alias dcb="docker-compose-build"
-alias dcr="docker-compose-run"
+alias pcb="podman-compose-build"
+alias pcr="podman-compose-run"
 
 # VIM Editor
 alias vim=/usr/bin/nvim
