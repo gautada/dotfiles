@@ -63,8 +63,8 @@ alias drmi="/User/mada/Bin/docker-rm-images"
 # ║                                                                           ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-alias ~="source ~/Python/bin/activate"     # Activate the default venv
-alias ~~="deactivate"               # Deactivate the current venv
+alias ~="source /home/coder/Python/bin/activate" # Activate the default venv
+alias ~~="deactivate"                            # Deactivate the current venv
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║ CONFIGURATION BLOCK                                                       ║
