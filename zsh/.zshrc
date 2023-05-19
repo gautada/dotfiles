@@ -1,1 +1,1 @@
-/home/nvim/.config/repo/public/zsh/rc
+/home/neovim/.config/repo/public/zsh/rc

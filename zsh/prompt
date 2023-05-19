@@ -17,7 +17,8 @@ precmd() {
    if ! [ -z $VIRTUAL_ENV ]; then
        PREPROMPT="$PREPROMPT%F{yellow}$(basename $VIRTUAL_ENV)@🐍%F{white}:%f%F{blue}%~%f"
    else
-       PREPROMPT="$PREPROMPT%F{yellow}%n@$(echo $HOST | awk -F '-' '{print $1}')%f%F{white}:%f%F{blue}%~%f"
+       # PREPROMPT="$PREPROMPT%F{yellow}%n@$(echo $HOST | awk -F '-' '{print $1}')%f%F{white}:%f%F{blue}%~%f"
+       PREPROMPT="$PREPROMPT%F{yellow}%n@deven%f%F{white}:%f%F{blue}%~%f"
    fi
    # CONTEXT="%F{yellow}%n@%M%f%F{white}:%f%F{blue}%~%f"
    # VENV="%F{yellow}🐍%F{white}:%f%F{blue}%~%f"
