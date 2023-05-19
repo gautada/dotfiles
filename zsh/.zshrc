@@ -1,1 +1,1 @@
-/home/coder/.config/repo/public/zsh/rc
+/home/nvim/.config/repo/public/zsh/rc
