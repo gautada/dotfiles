@@ -49,3 +49,4 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history
 # cd ~/Workspace/
 # source ~/.kube/k8s-autocomplete.zshrc
 
+# export $PATH:~/Bin
