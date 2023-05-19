@@ -31,8 +31,9 @@ alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
-alias ccb=""$(_container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
-alias ccr="$(_container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
+alias ccb="container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
+alias ccr="container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
+alias ccv=""
 
 # VIM Editor
 alias vim=/usr/bin/nvim
