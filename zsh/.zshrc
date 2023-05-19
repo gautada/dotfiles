@@ -1,1 +1,1 @@
-/home/neovim/.config/repo/public/zsh/rc
+rc

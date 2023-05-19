@@ -1,12 +1,27 @@
-#!/bin/zsh
+#!/bin/sh
 
-podman-compose-build() {
- /usr/bin/podman-compose build $(pwd | awk -F'/' '{print $NF}') $@ 
- # echo "$(pwd | awk -F'/' '{print $NF}')"
+# functions - This is a collection of functions for the default shell, used across MacOS, Alpine, and Debian.
+
+_container-compose() {
+ if [ -f "/usr/bin/podman-compose" ] ; then
+  echo "/usr/bin/podman-compose"
+ fi
+#  else
+#   if [ -f "/usr/bin/docker" ] ; then
+#    echo "/usr/bin/docker compose"
+#   else
+#    echo "No compose app found"
+#    exit 1
+#   fi
+#  fi
 }
 
-podman-compose-run() {
- /usr/bin/podman-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') "$@"
+container-compose-build() {
+ $(_container-compose build $(pwd | awk -F'/' '{print $NF}') $@
+}
+
+container-compose-run() {
+ $(_container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') "$@"
 }
 
 

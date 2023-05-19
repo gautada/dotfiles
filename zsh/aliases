@@ -5,7 +5,7 @@ source ~/.config/zsh/functions
 # ║ Basic `ls` options                                                        ║
 # ║                                                                           ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-# alias ls="ls -aCFGl"                            # Colorized
+# alias ls="ls -aCFGl" # Colorized
 alias ls="ls -laH"
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
@@ -30,9 +30,9 @@ alias krr='~/Bin/kubectl rollout restart -n $1 deployment $2'
 alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
-# alias dcb="docker compose build $(pwd | awk -F'/' '{print $NF}')"
-alias pcb="podman-compose-build"
-alias pcr="podman-compose-run"
+# alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
+alias ccb=""$(_container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
+alias ccr="$(_container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
 
 # VIM Editor
 alias vim=/usr/bin/nvim
