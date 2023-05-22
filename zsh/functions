@@ -20,6 +20,20 @@ container-compose() {
 #  fi
 }
 
+container-kubectl() {
+ echo "FUNCTION"
+
+ if [ -f "/usr/bin/kubectl" ] ; then
+  /usr/bin/kubectl $@
+ else
+  if [ -f "/usr/local/bin/kubectl" ] ; then
+   /usr/local/bin/kubectl $@
+  fi
+ fi
+}
+
+
+
 # container-compose-build() {
 #  $(container-compose build $(pwd | awk -F'/' '{print $NF}') $@)
 # }

@@ -15,20 +15,21 @@ alias ls="ls -laH"
 # ║                                                                           ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-alias k="/usr/bin/kubectl"                    # kubectl
-alias krr="/usr/bin/kubectl rollout restart -n $1 deployment/$2" # rollout restart
-alias ka="/usr/bin/kubectl apply -f $1"         # Apply a manifest
+alias k="container-kubectl"                    # kubectl
+alias krr="container-kubectl rollout restart -n $1 deployment/$2" # rollout restart
+alias ka="container-kubectl apply -f $1"         # Apply a manifest
 
-alias kd="/usr/bin/kubectl delete -f "         # Delete
-alias ke="/usr/bin/kubectl edit "              # Edit
-alias kg="/usr/bin/kubectl get "               # Get
-alias kl="/usr/bin/kubectl logs --follow "     # Follow Logs
-alias kr="/usr/bin/kubectl rollout restart "   # Restart
-alias kw="/usr/bin/kubectl get --watch "       # Watch Get
-alias kx="/usr/bin/kubectl exec -it $1 $2 -- /bin/sh"
-alias krr='~/Bin/kubectl rollout restart -n $1 deployment $2'
+alias kd="container-kubectl delete -f "         # Delete
+alias ke="container-kubectl edit "              # Edit
+alias kg="container-kubectl get "               # Get
+alias kl="contianer-kubectl logs --follow "     # Follow Logs
+alias kr="contianer-kubectl rollout restart "   # Restart
+alias kw="container-kubectl get --watch "       # Watch Get
+alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
+alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
 alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
-alias krri="~/Bin/kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
+alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
+:w
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
 alias ccb="container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
