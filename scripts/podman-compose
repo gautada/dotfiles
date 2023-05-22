@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. ~/.cache/pyvenv/bin/activate
+~/.cache/pyvenv/bin/podman-compose $@
+deactivate
+
