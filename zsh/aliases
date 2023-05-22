@@ -29,7 +29,7 @@ alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
 alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
 alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
-:w
+
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
 alias ccb="container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
