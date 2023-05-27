@@ -6,20 +6,27 @@
 :set smarttab
 :set softtabstop=4
 :set mouse=a
+:set encoding=UTF-8
+:set colorcolumn=80
 
 call plug#begin()
 " NOTE: To install plugins `:PlugInstall`
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
+
+" Integrated Development Environment Plugins
+"
+" These plugins provide the default/standard IDE implementation
+Plug 'https://github.com/preservim/nerdtree' " File Tree
 Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
+
+" Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 
-set encoding=UTF-8
+"set encoding=UTF-8
 call plug#end()
 
 " +++++++++++++++++++++ KEY MAPPINGS
@@ -32,6 +39,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 
 " - `:nmap` - NORMAL mode
 nmap <F8> :TagbarToggle<CR>
+nmap <F10> :TerminalSplit zsh<CR>
 
 
 
@@ -57,3 +65,6 @@ let g:airline_symbols.linenr = ''
 
 " SPECIFIC: Code Navigation (TagBar)
 nmap <F8> :TagbarToggle<CR>
+
+" Color Themes
+:colorscheme solarized8
