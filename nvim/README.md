@@ -25,20 +25,13 @@ neovim written in lua.
 
 #### Status Bar
 
-
 [lualine](https://github.com/nvim-lualine/lualine.nvim) is blazing fast and 
 easy to configure neovim statusline written in lua.
 
 
 #### Terminal
 
-[vim-terminal](https://github.com/tc50cal/vim-terminal) is a Vim plugin which 
-allows you to run interactive programs, such as bash on Linux or 
-powershell.exe on Windows, inside a Vim buffer. In other words, it is a 
-terminal emulator which uses a Vim buffer to display the program output.
-
-- Notes:
-  - Requirement: the python package must be installed `pip install neovim`
+[floaterm](use 'voldikss/vim-floaterm')
 
 ## Notes
 

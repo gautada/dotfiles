@@ -46,6 +46,7 @@ return packer.startup(function(use)
     -- commenting with gc
   use("numToStr/Comment.nvim")
 
+  use('voldikss/vim-floaterm')
 
   if packer_bootstrap then
     require("packer").sync()
