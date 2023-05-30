@@ -31,6 +31,8 @@ return packer.startup(function(use)
   -- packer can manage itself
   use("wbthomason/packer.nvim")
 
+  use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
+
   use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
    
   -- File Explorer
@@ -44,6 +46,10 @@ return packer.startup(function(use)
 
   -- git integration
   use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
+
+   -- fuzzy finding w/ telescope
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
+  use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
 
   -- commenting with gc
   use("numToStr/Comment.nvim")

@@ -11,3 +11,5 @@ require("gautada.plugins.lualine")
 require("gautada.plugins.treesitter")
 require("gautada.plugins.comment")
 require("gautada.plugins.gitsigns")
+
+require("gautada.plugins.telescope")
