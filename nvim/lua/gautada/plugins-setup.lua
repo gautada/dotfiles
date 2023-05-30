@@ -1,3 +1,4 @@
+
 -- auto install packer if not installed
 local ensure_packer = function()
   local fn = vim.fn
@@ -28,31 +29,48 @@ end
 
 -- add list of plugins to install
 return packer.startup(function(use)
-  -- packer can manage itself
-  use("wbthomason/packer.nvim")
-
+  -- ============================================================ INITIAL SETUP
+  -- Initial setup does not use additional configuration and setup
+  use("wbthomason/packer.nvim") -- packer is the plugin manager
   use("nvim-lua/plenary.nvim") -- lua functions that many plugins use
 
-  use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
-   
-  -- File Explorer
-  use("nvim-tree/nvim-tree.lua")
-  -- vs-code like icons
-  use("nvim-tree/nvim-web-devicons")
-  -- Status Bar
-  use("nvim-lualine/lualine.nvim")
-  -- Terminal
-  use('voldikss/vim-floaterm')
-
-  -- git integration
-  use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
-
-   -- fuzzy finding w/ telescope
+  -- ============================================================ FILE EXPLORER
+  -- The following should be configured in the file-explorer.lua file
+  use("nvim-tree/nvim-tree.lua") -- nvim-tree file explorer
+  -- fuzzy finding w/ telescope
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
   use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
+  use("lewis6991/gitsigns.nvim") -- show line git status on left hand side
 
+  -- ================================================================= TERMINAL
+  use('voldikss/vim-floaterm')
+
+  -- =================================================================== STYLE
+  use("nvim-lualine/lualine.nvim") -- lualine configured as statusbar.lua
+  use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme -- vs-code like icons
+  use("nvim-tree/nvim-web-devicons")
+
+  -- ============================================================= AUTOCOMPLETE
   -- commenting with gc
   use("numToStr/Comment.nvim")
+
+   -- autocompletion
+  use("hrsh7th/nvim-cmp") -- completion plugin
+  use("hrsh7th/cmp-buffer") -- source for text in buffer
+  use("hrsh7th/cmp-path") -- source for file system paths
+
+  -- snippets
+  use("L3MON4D3/LuaSnip") -- snippet engine
+  use("saadparwaiz1/cmp_luasnip") -- for autocompletion
+  use("rafamadriz/friendly-snippets") -- useful snippets
+
+  -- managing & installing lsp servers, linters & formatters
+  use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
+  use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
+
+  -- configuring lsp servers
+  use("neovim/nvim-lspconfig") -- easily configure language servers
+  use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
 
   -- treesitter configuration
   use({

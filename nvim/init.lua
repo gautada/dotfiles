@@ -1,15 +1,23 @@
 -- Configuration
 require("gautada.plugins-setup")
--- Core
 require("gautada.core.options")
 require("gautada.core.keymaps")
 require("gautada.core.colorscheme")
--- Plugins
-require("gautada.plugins.nvim-tree")
+
+
+
+
+-- **** ------------------------------ Plugins
+require("gautada.plugins.files")
+
+-- Status Bar
 require("gautada.plugins.lualine")
 
-require("gautada.plugins.treesitter")
+-- Autocomplete
+require("gautada.plugins.nvim-cmp")
 require("gautada.plugins.comment")
-require("gautada.plugins.gitsigns")
+require("gautada.plugins.treesitter")
 
-require("gautada.plugins.telescope")
+
+require("gautada.plugins.lsp.mason")
+

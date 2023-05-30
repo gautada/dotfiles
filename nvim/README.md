@@ -29,8 +29,13 @@ across all devices and environments
 
 #### File Explorer
 
-[nvim.tree](https://github.com/nvim-tree/nvim-tree.lua) is a file explorer for
+The file explorer feture provides plugins that help manipulate, maintaing, and 
+interact with files on the host system.
+
+- [nvim.tree](https://github.com/nvim-tree/nvim-tree.lua) is a file explorer for
 neovim written in lua.
+- [telescope]()
+- [gitsigns]()
 
 #### Status Bar
 
@@ -45,6 +50,9 @@ Terminal is split between two mechanism, the defaul `:terminal` and
 [floaterm](https://github.com/voldikss/vim-floaterm) use (neo)vim terminal in 
 the floating/popup window.
 
+#### Autocomplete
+
+
 ## Notes
 
 ### NvChad
@@ -52,6 +60,10 @@ the floating/popup window.
 - [NvChad](https://github.com/NvChad/NvChad) This is the previous enviroment 
 settings being used.  This has been deprecated in favor of attempting to 
 manually setup and document the nvim environment.
+
+### Lua Based neovim
+- This mechanism uses [plenary](https://github.com/nvim-lua/plenary.nvim) 
+which is a set of kinda standard functions used by other lua code being used.
 
 - Switching away from vimscript. To a lua based configuration. This is based
 on [Josean Martinez](https://github.com/josean-dev/dev-environment-files).
