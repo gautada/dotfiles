@@ -39,14 +39,23 @@ return packer.startup(function(use)
   use("nvim-tree/nvim-web-devicons")
   -- Status Bar
   use("nvim-lualine/lualine.nvim")
+  -- Terminal
+  use('voldikss/vim-floaterm')
 
-   -- git integration
+  -- git integration
   use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
 
-    -- commenting with gc
+  -- commenting with gc
   use("numToStr/Comment.nvim")
 
-  use('voldikss/vim-floaterm')
+  -- treesitter configuration
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    run = function()
+      local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+      ts_update()
+    end,
+  })
 
   if packer_bootstrap then
     require("packer").sync()

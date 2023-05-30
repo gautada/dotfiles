@@ -58,5 +58,6 @@ keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current c
 keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
 
 -- floaterm
-keymap.set("n", "<leader>z", ":FloatermToggle<CR>") --  go to previous tab
+keymap.set("n", "<leader>zz", ":split +terminal | :setlocal nonumber norelativenumber<CR>") -- launch the terminal in a horizontal split
+keymap.set("n", "<leader>zf", ":FloatermToggle<CR>") --  launch the floating term
 
