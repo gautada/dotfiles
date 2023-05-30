@@ -6,3 +6,4 @@ if not status then
   return
 end
 
+require("gautada.plugins.lualine")
