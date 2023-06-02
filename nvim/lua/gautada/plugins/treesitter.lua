@@ -12,7 +12,7 @@ treesitter.setup({
   },
   -- enable indentation
   indent = { enable = true },
-  -- enable autotagging (w/ nvim-ts-autotag plugin)
+  -- enable a:Tutotagging (w/ nvim-ts-autotag plugin)
   autotag = { enable = true },
   -- ensure these language parsers are installed
   ensure_installed = {
@@ -28,6 +28,8 @@ treesitter.setup({
     "vim",
     "dockerfile",
     "gitignore",
+    "python",
+    "sql",
   },
   -- auto install above language parsers
   auto_install = true,
