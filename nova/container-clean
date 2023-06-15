@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+/usr/local/bin/docker rm --volumes --force $(/usr/local/bin/docker ps --quiet)
+/usr/local/bin/docker rmi --force $(/usr/local/bin/docker images --quiet)
