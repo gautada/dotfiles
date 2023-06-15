@@ -1,4 +1,4 @@
 #!/bin/sh
-
-/usr/local/bin/docker compose run --service-ports $(pwd | awk -F'/' '{print $NF}')  $NOVA_CONTAINER_RUN
+echo $NOVA_CONTAINER_RUN
+/usr/local/bin/docker compose run --service-ports --detach $(pwd | awk -F'/' '{print $NF}')  tail -f /dev/null
 
