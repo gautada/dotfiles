@@ -1,4 +1,7 @@
 #!/bin/zsh
 
-/usr/local/bin/docker rm --volumes --force $(/usr/local/bin/docker ps --quiet)
+ALL_CONTAINERS="$(/usr/local/bin/docker ps --all --quiet)"
+if [ ! -z "$(/usr/local/bin/docker ps --all --quiet)" ] ; then
+ /usr/local/bin/docker rm --volumes --force $(/usr/local/bin/docker ps --all --quiet)
+fi
 /usr/local/bin/docker rmi --force $(/usr/local/bin/docker images --quiet)
