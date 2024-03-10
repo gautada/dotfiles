@@ -1,0 +1,22 @@
+#!/bin/sh
+
+_BASE="$(/usr/bin/basename $(pwd))"
+_NAME="$_BASE"
+if [[ $_BASE == *-container* ]]; then
+ _NAME=${_BASE%-container}
+fi
+
+set -a
+source envs.conf
+source .envs.conf
+set +a
+
+
+LOGIN="podman login --username=$DOCKERIO_USERNAME --password=$DOCKERIO_PASSWORD $PUBLISH_REPOSITORY"
+/bin/sh -c "$LOGIN"
+ 
+PUSH="podman push '$PUBLISH_REPOSITORY/$DOCKERIO_USERNAME/$_NAME:$1'"
+echo "$PUSH"
+/bin/sh -c "$PUSH"
+
+

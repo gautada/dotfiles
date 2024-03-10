@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -a
+source envs.conf
+source .envs.conf
+set +a

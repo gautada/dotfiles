@@ -1,0 +1,20 @@
+#!/bin/sh
+
+_BASE="$(/usr/bin/basename $(pwd))"
+_NAME="$_BASE"
+if [[ $_BASE == *-container* ]]; then
+ _NAME=${_BASE%-container}
+fi
+
+set -a
+source envs.conf
+source .envs.conf
+set +a
+
+TAG="podman tag 'localhost/$_NAME:build' '$PUBLISH_REPOSITORY/$DOCKERIO_USERNAME/$_NAME:$1'"
+echo "$TAG"
+/bin/sh -c "$TAG"
+
+
+
+

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Script to invoke the podman-compose in the default user level
+# python virtual environmane
+
 . ~/.cache/pyvenv/bin/activate
 ~/.cache/pyvenv/bin/podman-compose $@
 deactivate

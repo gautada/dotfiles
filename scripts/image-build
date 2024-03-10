@@ -1,0 +1,12 @@
+#!/bin/sh
+
+_ARGS=""
+if [ -f "args.conf" ] ; then
+ _ARGS="--build-arg-file ./args.conf"
+fi
+if [ -f ".args.conf" ] ; then
+ _ARGS="$_ARGS --build-arg-file ./.args.conf"
+fi
+BUILD="podman build $_ARGS  --file Containerfile --no-cache --tag '$(/usr/bin/basename $(pwd)):build' ./"
+echo "$BUILD"
+/bin/sh -c "$BUILD"
