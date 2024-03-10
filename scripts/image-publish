@@ -7,8 +7,16 @@ if [[ $_BASE == *-container* ]]; then
 fi
 
 set -a
-source envs.conf
-source .envs.conf
+# source envs.conf
+# source .envs.conf
+set -a
+if [ -f "./args.conf" ] ; then
+ source ./args.conf"
+fi
+if [ -f "./envs.conf" ] ; then
+ source ./envs.conf"
+fi
+set +a
 set +a
 
 
