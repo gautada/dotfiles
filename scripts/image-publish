@@ -9,18 +9,24 @@ fi
 set -a
 # source envs.conf
 # source .envs.conf
-set -a
 if [ -f "./args.conf" ] ; then
  source ./args.conf
+fi
+if [ -f "./.args.conf" ] ; then
+ source ./.args.conf
 fi
 if [ -f "./envs.conf" ] ; then
  source ./envs.conf
 fi
-set +a
+if [ -f "./.envs.conf" ] ; then
+ source ./.envs.conf
+fi
 set +a
 
 
 LOGIN="podman login --username=$DOCKERIO_USERNAME --password=$DOCKERIO_PASSWORD $PUBLISH_REPOSITORY"
+# DO NOT LEAVE THIS UNCOMMENTED
+echo "$LOGIN"
 /bin/sh -c "$LOGIN"
  
 PUSH="podman push '$PUBLISH_REPOSITORY/$DOCKERIO_USERNAME/$_NAME:$1'"
