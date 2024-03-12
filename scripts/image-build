@@ -5,6 +5,9 @@ _NAME="$_BASE"
 if [[ $_BASE == *-container.git* ]] ; then
  _NAME=${_BASE%-container.git}
 fi
+echo "********************************************************"
+echo $_NAME
+echo
 
 _ARGS=""
 if [ -f "args.conf" ] ; then
