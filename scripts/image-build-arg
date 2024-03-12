@@ -9,7 +9,7 @@ args = parser.parse_args()
 
 # Read the file and extract the value of the specified key
 # with open(args.file_path, 'r') as file:
-with open("./buildargs.conf", 'r') as file:
+with open("./args.conf", 'r') as file:
     for line in file:
         line = line.strip()
         if line:
