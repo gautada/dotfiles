@@ -1,10 +1,11 @@
 #!/bin/sh
-_BASE="$(/usr/bin/basename $(pwd))"
+# basename $(git rev-parse --show-toplevel)
+_BASE="$(/usr/bin/basename $(git rev-parse --show-toplevel))"
 _NAME="$_BASE"
 if [[ $_BASE == *-container* ]] ; then
  _NAME=${_BASE%-container}
 fi
-if [ $_BASE -eq "src"] ; then
- _NAME="$(/usr/bin/dirname $(pwd))"
-fi
+# if [ $_BASE -eq "src"] ; then
+#  _NAME="$(/usr/bin/dirname $(pwd))"
+# fi
 echo $_NAME
