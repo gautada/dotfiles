@@ -1,5 +1,5 @@
 #!/bin/sh
-# basename $(git rev-parse --show-toplevel)
+# _BASE="$(/usr/bin/basename $(pwd))"
 _BASE="$(/usr/bin/basename $(git rev-parse --show-toplevel))"
 _NAME="$_BASE"
 if [[ $_BASE == *-container* ]] ; then
