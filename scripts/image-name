@@ -1,9 +1,10 @@
 #!/bin/sh
 # _BASE="$(/usr/bin/basename $(pwd))"
-_BASE="$(/usr/bin/basename $(git rev-parse --show-toplevel))"
+# _BASE="$(/usr/bin/basename $(git rev-parse --show-toplevel))"
+_BASE="$(/usr/bin/basename $(git config --get remote.origin.url))"
 _NAME="$_BASE"
-if [[ $_BASE == *-container* ]] ; then
- _NAME=${_BASE%-container}
+if [[ $_BASE == *-container.git* ]] ; then
+ _NAME=${_BASE%-container.git}
 fi
 # if [ $_BASE -eq "src"] ; then
 #  _NAME="$(/usr/bin/dirname $(pwd))"
