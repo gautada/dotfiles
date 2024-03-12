@@ -21,6 +21,16 @@ if [ -f "./.envs.conf" ] ; then
 fi
 set +a
 
+if [ -z $PUBLISH_REPOSITORY ] ; then
+ echo "PUBLISH_REPOSITORY not found"
+ exit 1
+fi
+
+if [ -z $DOCKERIO_USERNAME ] ; then
+ echo "DOCKERIO_USERNAME not found"
+ exit 1
+fi
+
 TAG="podman tag 'localhost/$_NAME:build' '$PUBLISH_REPOSITORY/$DOCKERIO_USERNAME/$_NAME:$1'"
 echo "$TAG"
 /bin/sh -c "$TAG"
