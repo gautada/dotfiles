@@ -2,8 +2,11 @@
 
 _BASE="$(/usr/bin/basename $(pwd))"
 _NAME="$_BASE"
-if [[ $_BASE == *-container* ]]; then
+if [[ $_BASE == *-container* ]] ; then
  _NAME=${_BASE%-container}
+fi
+if [ $_BASE -eq "src"] ; then
+ _NAME="$(/usr/bin/dirname $(pwd))"
 fi
 
 set -a

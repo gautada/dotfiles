@@ -1,9 +1,10 @@
 #!/bin/sh
 _BASE="$(/usr/bin/basename $(pwd))"
-# echo $_BASE
-
 _NAME="$_BASE"
-if [[ $_BASE == *-container* ]]; then
+if [[ $_BASE == *-container* ]] ; then
  _NAME=${_BASE%-container}
 fi
-echo $_NAME 
+if [ $_BASE -eq "src"] ; then
+ _NAME="$(/usr/bin/dirname $(pwd))"
+fi
+echo $_NAME
