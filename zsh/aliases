@@ -1,19 +1,19 @@
 source ~/.config/zsh/functions
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║ CONFIGURATION BLOCK                                                       ║
-# ║                                                                           ║
-# ║ Basic `ls` options                                                        ║
-# ║                                                                           ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
+# ╔══════════════════════╗
+# ║ CONFIGURATION BLOCK                        ║
+# ║                                            ║
+# ║ Basic `ls` optins                          ║
+# ║                                            ║
+# ╚══════════════════════╝
 # alias ls="ls -aCFGl" # Colorized
 alias ls="ls -laH"
 
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║ CONFIGURATION BLOCK                                                       ║
-# ║                                                                           ║
-# ║ Kubernetes (k8s) Client                                                   ║
-# ║                                                                           ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
+# ╔═════════════════════
+# ║ CONFIGURATION BLOCK                      ║
+# ║                                          ║
+# ║ Kubernetes (k8s) Client                  ║
+# ║                                          ║
+# ╚═════════════════════╝
 
 alias k="container-kubectl"                    # kubectl
 alias krr="container-kubectl rollout restart -n $1 deployment/$2" # rollout restart
@@ -32,7 +32,7 @@ alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress
 
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
-alias ccb="container-compose build $(pwd | awk -F'/' '{print $NF}') $@"
+alias ccb="container-compose build --no-cache $(pwd | awk -F'/' '{print $NF}') $@"
 alias ccr="container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
 alias ccv=""
 

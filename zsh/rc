@@ -20,7 +20,7 @@
 # ║ Auto Complete                                                             ║
 # ║                                                                           ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-autoload -Uz compinit ; compinit
+# autoload -Uz compinit ; compinit
 
 source $HOME/.config/zsh/env
 source $ZDOTDIR/aliases
@@ -46,7 +46,18 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history
 
+#
+# Homebrew setup
+#
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
 # cd ~/Workspace/
 # source ~/.kube/k8s-autocomplete.zshrc
 
-# export $PATH:~/Bin
+export PATH=~/Bin:$PATH:~/.cache/node/bin
+. ~/.config/zsh/profile
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

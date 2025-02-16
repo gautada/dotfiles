@@ -2,14 +2,14 @@
 
 # functions - This is a collection of functions for the default shell, used across MacOS, Alpine, and Debian.
 
-container-compose() {
- if [ -f "/usr/bin/podman-compose" ] ; then
-  /usr/bin/podman-compose $@
- else
-  if [ -f "/usr/local/bin/docker" ] ; then
-   /usr/local/bin/docker compose $@
-  fi
- fi
+# container-compose() {
+#  if [ -f "/usr/bin/podman-compose" ] ; then
+#   /usr/bin/podman-compose $@
+#  else
+#   if [ -f "/usr/local/bin/docker" ] ; then
+#    /usr/local/bin/docker compose $@
+#   fi
+#  fi
 #  else
 #   if [ -f "/usr/bin/docker" ] ; then
 #    echo "/usr/bin/docker compose"
@@ -18,7 +18,7 @@ container-compose() {
 #    exit 1
 #   fi
 #  fi
-}
+# }
 
 container-kubectl() {
  echo "FUNCTION"
@@ -43,3 +43,8 @@ container-kubectl() {
 # }
 
 
+#  if test -f ".env"; then
+#   set -a # automatically export all variables
+#   source .env
+#   set +a
+#  fi
