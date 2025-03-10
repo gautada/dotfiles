@@ -6,7 +6,7 @@ source ~/.config/zsh/functions
 # ║                                            ║
 # ╚══════════════════════╝
 # alias ls="ls -aCFGl" # Colorized
-alias ls="ls -laH"
+alias ls="ls -laH --color"
 
 # ╔═════════════════════
 # ║ CONFIGURATION BLOCK                      ║
@@ -32,14 +32,24 @@ alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress
 
 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
+
 alias ccb="container-compose build --no-cache $(pwd | awk -F'/' '{print $NF}') $@"
 alias ccr="container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
-alias ccv=""
+# alias ccv=""
+# alias ccb="container-compose-build $@"
+# alias ccr="container-compose-run $@"
+#  --service-ports '$(print-current-folder)' '$@'"
+# alias ccv="print-current-folder"
+
 
 # VIM Editor
-alias vim=/usr/bin/nvim
+# alias vim=/usr/bin/nvim
 
-
+alias pvl="podman volume list"
+alias pil="podman images"
+alias pcl="podman system connection list"
+alias pps="podman ps -a"
+alias pci="podman rmi prune"
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║ CONFIGURATION BLOCK                                                       ║
 # ║                                                                           ║
