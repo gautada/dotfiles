@@ -46,7 +46,7 @@ alias drmi="/User/mada/Bin/docker-rm-images"
 
 
 # Python Environment Aliases
-alias ~="source ~/.cache/pyvenv/bin/activate" # Activate the default venv
+alias ~="source ~/.cache/local/bin/activate" # Activate the default venv
 alias ~~="deactivate"                       # Deactivate the current venv
 
 
