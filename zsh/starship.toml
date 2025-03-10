@@ -4,7 +4,7 @@
 
 add_newline = false
 command_timeout = 1000
-format = """$os$username$hostname$kubernetes$directory$git_branch$git_status$python"""
+format = """$os$username$hostname@$directory via $git_branch$git_status$python"""
 
 # Replace the '❯' symbol in the prompt with '➜'
 # [character] # The name of the module we are configuring is 'character'
@@ -21,7 +21,7 @@ disabled = true
 
 # OS Icon
 [os]
-format = '[$symbol](bold white) '
+format = '[$symbol](white) '
 disabled = false
 
 [os.symbols]
@@ -32,16 +32,16 @@ Macos = ''
 
 # Shows the username
 [username]
-style_user = 'bold green'
+style_user = 'green'
 style_root = 'bold red' # Does not work because this is not setup for root (see: ansible)
-format = '[$user]($style) '
+format = '[$user]($style)-'
 disabled = false
 show_always = true
 
 # Shows the hostname
 [hostname]
 ssh_only = false
-format = 'on [$hostname](bold yellow) '
+format = '[$hostname](bold green)'
 disabled = false
 
 # Shows current directory
@@ -51,12 +51,12 @@ truncation_symbol = '…/'
 home_symbol = '󰋜 ~'
 read_only_style = '197'
 read_only = '  '
-format = 'at [$path]($style)[$read_only]($read_only_style) '
+format = '[$path](bold yellow)[$read_only]($read_only_style)'
 
 # Shows current git branch
 [git_branch]
 symbol = ' '
-format = 'via [$symbol$branch]($style)'
+format = '[$symbol$branch]($style)'
 # truncation_length = 4
 truncation_symbol = '…/'
 style = 'bold green'
@@ -80,7 +80,7 @@ deleted = ' '
 [python]
 symbol = ''
 style = 'bold blue'
-format = 'via [${symbol} ${pyenv_prefix}\(($virtualenv) ${version}\)]($style) '
+format = '[${symbol} ${pyenv_prefix}\(($virtualenv) ${version}\)]($style)'
 disabled = false
 
 
