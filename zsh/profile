@@ -6,4 +6,5 @@ export PATH="$HOME/.local/bin:$PATH"
 # Only show a message on SSH login
 if [[ -n $SSH_CONNECTION ]]; then
   echo "Welcome to your SSH session!"
+  eval "$HOME/.cache/local/bin/activate"
 fi

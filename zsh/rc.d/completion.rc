@@ -18,4 +18,4 @@ compinit -d "$ZCOMPDUMP"
 zcompile "$ZCOMPDUMP"
 
 # Enable kubectl completion if not already enabled
-source <($(which kubectl) completion zsh)
+source <(/opt/homebrew/bin/kubectl completion zsh)

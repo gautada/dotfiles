@@ -4,7 +4,7 @@
 
 add_newline = false
 command_timeout = 1000
-format = """$os$username$hostname@$directory via $git_branch$git_status$python"""
+format = """$os$username$hostname@$directory$git_branch$git_status$python """
 
 # Replace the '❯' symbol in the prompt with '➜'
 # [character] # The name of the module we are configuring is 'character'
@@ -55,7 +55,7 @@ format = '[$path](bold yellow)[$read_only]($read_only_style)'
 
 # Shows current git branch
 [git_branch]
-symbol = ' '
+symbol = '  '
 format = '[$symbol$branch]($style)'
 # truncation_length = 4
 truncation_symbol = '…/'
@@ -69,7 +69,7 @@ conflicted = '🏳'
 up_to_date = ''
 untracked = ' '
 ahead = '⇡${count}'
-diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_cou nt}'
 behind = '⇣${count}'
 stashed = ' '
 modified = ' '
@@ -78,87 +78,7 @@ renamed = '襁 '
 deleted = ' '
 
 [python]
-symbol = ''
+symbol = '  '
 style = 'bold blue'
-format = '[${symbol} ${pyenv_prefix}\(($virtualenv) ${version}\)]($style)'
+format = '[${symbol}${pyenv_prefix}\(($virtualenv) ${version}\)]($style) '
 disabled = false
-
-
-# This is the default symbols table.
-# [os.symbols]
-# Alpine = ""
-# Amazon = "🙂 "
-# Android = "🤖 "
-# CentOS = "💠 "
-# Debian = "🌀 "
-# Fedora = "🎩 "
-# Linux = "🐧 "
-# Macos = ""
-# Raspbian = "🍓 "
-# Redhat = "🎩 "
-# RedHatEnterprise = "🎩 "
-# Ubuntu = ""
-# Unknown = "?"
-# Windows = "🪟 "
-
-
-
-
-
-
-#   # Source:https://github.com/ChristianLempa/dotfiles/blob/main/.zsh/starship.zsh
-#   # find out which distribution we are running on
-#   LFILE="/etc/*-release"
-#   MFILE="/System/Library/CoreServices/SystemVersion.plist"
-#
-#   awk '/^ID=/' /System/Library/CoreServices/SystemVersion.plist | awk -F'=' '{ print tolower($2) }'
-#   if [[ -e $LFILE ]]; then
-#     _distro=$(awk '/^ID=/' /etc/*-release | awk -F'=' '{ print tolower($2) }')
-#   elif [[ -e $MFILE ]]; then
-#     _distro=$(awk -F'[<>]' '/<key>ProductName<\/key>/{getline; print $3}' $MFILE)
-#
-#     # on mac os use the systemprofiler to determine the current model
-#     _device=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3,$4,$5,$6,$7}')
-#
-#     case $_device in
-#       *iMac*)        DEVICE="";;
-#       *MacBook*)     DEVICE="";;
-#       *mini*)        DEVICE="󰇄";;
-#       *)             DEVICE="";;
-#     esac
-#   fi
-#
-#   # set an icon based on the distro
-#   # make sure your font is compatible with https://github.com/lukas-w/font-logos
-#   case $_distro in
-#       *kali*)                  ICON="ﴣ";;
-#       *arch*)                  ICON="";;
-#       *debian*)                ICON="";;
-#       *raspbian*)              ICON="";;
-#       *ubuntu*)                ICON="";;
-#       *elementary*)            ICON="";;
-#       *fedora*)                ICON="";;
-#       *coreos*)                ICON="";;
-#       *gentoo*)                ICON="";;
-#       *mageia*)                ICON="";;
-#       *centos*)                ICON="";;
-#       *opensuse*|*tumbleweed*) ICON="";;
-#       *sabayon*)               ICON="";;
-#       *slackware*)             ICON="";;
-#       *linuxmint*)             ICON="";;
-#       *alpine*)                ICON="";;
-#       *aosc*)                  ICON="";;
-#       *nixos*)                 ICON="";;
-#       *devuan*)                ICON="";;
-#       *manjaro*)               ICON="";;
-#       *rhel*)                  ICON="";;
-#       *macos*)                 ICON="";;
-#       *)                       ICON="";;
-#   esac
-#
-#   export STARSHIP_DISTRO="$ICON"
-#   export STARSHIP_DEVICE="$DEVICE"
-#
-# # [python]
-# #   symbol = '👾 '
-# #  pyenv_version_name = true
