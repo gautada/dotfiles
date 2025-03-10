@@ -1,65 +1,16 @@
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║ CONFIGURATION BLOCK                                                       ║
-# ║                                                                           ║
-# ║ Powerlevel10k                                                             ║
-# ║                                                                           ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-# source /var/lib/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+# ~/.zshrc - Standard Zsh Configuration File
 
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║ CONFIGURATION BLOCK                                                       ║
-# ║                                                                           ║
-# ║ Auto Complete                                                             ║
-# ║                                                                           ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
-# autoload -Uz compinit ; compinit
-
-source $HOME/.config/zsh/env
-source $ZDOTDIR/aliases
-source $ZDOTDIR/prompt
-
-# ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║ CONFIGURATION BLOCK                                                       ║
-# ║                                                                           ║
-# ║ History Configuration                                                     ║
-# ║                                                                           ║
-# ╚═══════════════════════════════════════════════════════════════════════════╝
-
-setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-setopt HIST_BEEP                 # Beep when accessing nonexistent history
-
+# This `.zshrc` file uses a **drop-in directory pattern** to make maintenance
+# and configuration of the zsh shell:
 #
-# Homebrew setup
-#
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# - **Modular** – Keeps different types of configurations separate (e.g., 
+#                 aliases, environment variables, functions).
+# - **Mainteable** – You can edit individual files without touching the
+#                    main config.
+# - **Automated** - A simple loop ensures all files are included.
+# - **Simple** – You can enable/disable features by adding/removing files.
 
 
-# cd ~/Workspace/
-# source ~/.kube/k8s-autocomplete.zshrc
-
-# export PATH=~/Bin:$PATH:~/.cache/node/bin
-# . ~/.config/zsh/profile
-export PATH=~/Bin:$PATH:/Users/mada/.local/bin
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+for rcfile in ~/.zshrc.d/*.rc; do
+	[ -r "$rcfile" ] && source "$rcfile"
+done
