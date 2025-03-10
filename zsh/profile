@@ -1,1 +1,9 @@
+# ~/.zprofile - Configuration for Login Shells
+# Set environment variables for login shells
+export LANG="en_US.UTF-8"
+export PATH="$HOME/.local/bin:$PATH"
 
+# Only show a message on SSH login
+if [[ -n $SSH_CONNECTION ]]; then
+  echo "Welcome to your SSH session!"
+fi

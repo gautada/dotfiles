@@ -1,0 +1,5 @@
+# Set the location for Zsh session files
+export ZSH_SESSIONDIR=~/.cache/zsh/sessions
+
+# Create the session directory if it doesn't exist
+mkdir -p "$ZSH_SESSIONDIR"
