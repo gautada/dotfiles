@@ -11,6 +11,6 @@
 # - **Simple** – You can enable/disable features by adding/removing files.
 
 
-for rcfile in ~/.zshrc.d/*.rc; do
+for rcfile in ~/.config/zsh/rc.d/*.rc; do
 	[ -r "$rcfile" ] && source "$rcfile"
 done
