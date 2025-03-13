@@ -18,6 +18,11 @@ alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
 
+# [p...] Podman **NOTE**: Clients
+alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
+alias pc="podman rmi --force --all"
+alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+
 # [c...] Container (podman) Client 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
 alias ccb="container-compose build --no-cache $(pwd | awk -F'/' '{print $NF}') $@"
@@ -27,12 +32,11 @@ alias ccr="container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}
 # alias ccr="container-compose-run $@"
 #  --service-ports '$(print-current-folder)' '$@'"
 # alias ccv="print-current-folder"
-# [p...] Podman **NOTE**: Move to Container Client
-alias pvl="podman volume list"
-alias pil="podman images"
-alias pcl="podman system connection list"
-alias pps="podman ps -a"
-alias pci="podman rmi prune"
+# alias pvl="podman volume list"
+# alias pil="podman images"
+# alias pcl="podman system connection list"
+# alias pps="podman ps -a"
+# alias pci="podman rmi prune"
 # [d...] Docker **Note**: Move to Container Client
 alias d="/usr/bin/docker "                    # docker
 alias dk="/usr/bin/docker stop --force ${PWD##*/}; /usr/local/docker rm --force ${PWD##*/}"
