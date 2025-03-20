@@ -18,10 +18,10 @@ alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
 alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
 
-# [p...] Podman **NOTE**: Clients
-alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
-alias pc="podman rmi --force --all"
-alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+# # [p...] Podman **NOTE**: Clients
+# alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
+# alias pc="podman rmi --force --all"
+# alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 
 # [c...] Container (podman) Client 
 # alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
