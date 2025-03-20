@@ -2,6 +2,8 @@
 
 # fzf is a general-purpose command-line fuzzy finder.
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 # Overload find with fzf and preview
 alias find='/opt/homebrew/bin/fzf --preview "/opt/homebrew/bin/bat --style=numbers --color=always {}"'
