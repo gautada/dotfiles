@@ -1,3 +1,9 @@
+#!/bin/zsh
+
+# Resources for managing and setup of the zsh shell.
 # source $HOME/.config/zsh/env
 # source $ZDOTDIR/aliases
 # source $ZDOTDIR/prompt
+
+# Reload zsh shell
+alias reload="source ~/.zshrc"

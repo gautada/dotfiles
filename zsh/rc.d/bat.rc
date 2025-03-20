@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+# A cat(1) clone with syntax highlighting and Git integration.
+alias cat="/opt/homebrew/bin/bat"
+alias _cat="/bin/cat"

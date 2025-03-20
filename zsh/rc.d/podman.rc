@@ -1,5 +1,5 @@
-#!/bin/zsh 
-
+#!/bin/zsh
+# This was pulled from the functions and alias files.
 podman-build() {
  echo "Image: ${1}"
  # Generic podman build use the `.arg` file to set params

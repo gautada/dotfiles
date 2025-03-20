@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+# fzf is a general-purpose command-line fuzzy finder.
+
+
+# Overload find with fzf and preview
+alias find='/opt/homebrew/bin/fzf --preview "/opt/homebrew/bin/bat --style=numbers --color=always {}"'
+
+# Legacy command
+alias _find="/usr/bin/find"
