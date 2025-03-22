@@ -1,2 +1,4 @@
+#!/bin/zsh
+
 export PATH=~/Bin:$PATH:/Users/mada/.local/bin
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:$SCRDIR:/usr/local/go/bin
+# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:$SCRDIR:/usr/local/go/bin

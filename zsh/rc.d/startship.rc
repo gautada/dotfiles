@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+STARSHIP="$(which starship)"
+# From the installation instructions at https://starship.rs/guide/#🚀-installation
+if [[ -e "$STARSHIP" ]]; then
+    # From the installation instructions at https://starship.rs/guide/#🚀-installation
+    # modified to be more specific
+    eval "$(${STARSHIP} init zsh)"
+    export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
+else
+    echo "Starship is not installed, defaulting to default MacOS prompt"
+fi
