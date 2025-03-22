@@ -2,16 +2,6 @@
 # homebrew works here and not in rc.d, not sure why
 # starship as my default shell prompt
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Drop this in favor of rc.d drop-in configuration
 
-STARSHIP="$(which starship)"
-# From the installation instructions at https://starship.rs/guide/#🚀-installation
-if [[ -e "$STARSHIP" ]]; then
-    # From the installation instructions at https://starship.rs/guide/#🚀-installation
-    # modified to be more specific
-    eval "$(${STARSHIP} init zsh)"
-    export STARTSHIP_CONFIG="${ZDOTDIR}/starship.toml"
-else
-    echo "Starship is not installed, defaulting to default MacOS prompt"
-fi
 

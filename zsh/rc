@@ -15,4 +15,4 @@ for rcfile in ~/.config/zsh/rc.d/*.rc; do
 	[ -r "$rcfile" ] && source "$rcfile"
 done
 
-source ~/.config/zsh/prompt
+# source ~/.config/zsh/prompt
