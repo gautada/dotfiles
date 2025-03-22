@@ -4,23 +4,26 @@
 
 add_newline = false
 command_timeout = 1000
-format = """$os$username$hostname@$directory$git_branch$git_status$python """
+# format = """$os$username$hostname@$directory$git_branch$git_status$python """
+format = """$username@$hostname in $directory$fill$time$os$git_branch$git_status$python\n$character """
 
+[character]
 # Replace the '❯' symbol in the prompt with '➜'
 # [character] # The name of the module we are configuring is 'character'
 # success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 # Drop ugly default prompt characters
-[character]
-success_symbol = ''
-error_symbol = ''
+success_symbol = '+'
+error_symbol = '-'
 
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
 
+[time]
+disabled = false
 
-# OS Icon
 [os]
+# OS Icon
 format = '[$symbol](white) '
 disabled = false
 
@@ -34,7 +37,7 @@ Macos = ''
 [username]
 style_user = 'green'
 style_root = 'bold red' # Does not work because this is not setup for root (see: ansible)
-format = '[$user]($style)-'
+format = '[$user]($style)'
 disabled = false
 show_always = true
 
