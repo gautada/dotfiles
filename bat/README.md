@@ -5,15 +5,7 @@ highlighting and Git integration.
 
 ## Themes
 
-Currently using the theme [Catpuccino-machiato](https://github.com/catppuccin/bat.git).
-
-### Setup
-
-```
-cd ~/.config/bat/themes
-curl -o catppuccin-macchiato.tmTheme  https://raw.githubusercontent.com/catppuccin/bat/refs/heads/main/themes/Catppuccin%20Macchiato.tmTheme
-bat cache --build
-echo '--theme="catppuccin-macchiato"' >> ../config/bat/config
-export BAT_THEME="catppuccin-macchiato"
-bat --list-themes | grep Catppuccin
-```
+Currently using the theme
+[Catpuccino-machiato](https://github.com/catppuccin/bat.git).
+To [setup](https://github.com/sharkdp/bat#adding-new-themes) update repository
+and `bat.rc` 
