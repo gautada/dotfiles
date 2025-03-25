@@ -11,7 +11,6 @@ palette = "catppuccin_macchiato"
 add_newline = false
 command_timeout = 1000
 
-# format = """$os$username$hostname@$directory$git_branch$git_status$python """
 format = """$os\
 $hostname\
 $directory\
@@ -30,6 +29,12 @@ $character"""
 # OS Icon
 format = '[$symbol](sky) '
 disabled = false
+
+[os.symbols]
+Windows = ' '
+Alpine = ""
+Ubuntu = ''
+Macos = ''
 
 # Shows the hostname
 [hostname]
@@ -69,12 +74,6 @@ use_12hr = true
 disabled = false
 format = '[$time]($style) '
 style = 'subtext1'
-
-[os.symbols]
-Windows = ' '
-Alpine = ""
-Ubuntu = ''
-Macos = ''
 
 # Shows the username
 [username]
