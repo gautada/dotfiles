@@ -28,15 +28,15 @@ kubectl_get_artifacts() {
 }
 
 kubectl_select_artifact() {
- kubectl_get_artifacts $1 | /opt/homebrew/bin/fzf --preview '/opt/homebrew/bin/kubectl describe $(echo {}|tr -s " ") | bat --paging=always  --style=numbers --color=always --language=yaml'
+ kubectl_get_artifacts $1 | /opt/homebrew/bin/fzf  --header "$2: Select a '$1'" --preview '/opt/homebrew/bin/kubectl describe $(echo {}|tr -s " ") | bat --paging=always  --style=numbers --color=always --language=yaml'
 }
 
 kubectl_rollout_restart() {
- /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deploy)
+ /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deployment "Initiate a rolling restart")
 }
 
 kubectl_exec_pod() {
- /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod) --tty -- /bin/sh
+ /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod "Jump into container") --tty -- /bin/sh
 }
    
 # [k...] Kubernetes (k8s) Client

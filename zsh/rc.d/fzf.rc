@@ -3,6 +3,11 @@
 zshlog 'i' "Loading: $(basename $0)"
 
 # fzf is a general-purpose command-line fuzzy finder.
+#
+# ## Notes:
+# ---
+# - Add a header to the fzf session via `--header`
+# - Add a prompt to the fzf query field via `--prompt`
 
 # Set up fzf key bindings and fuzzy completion
 source <(/opt/homebrew/bin/fzf --zsh)
