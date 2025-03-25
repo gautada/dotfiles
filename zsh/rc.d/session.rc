@@ -1,3 +1,7 @@
+#!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
+
 # Set the location for Zsh session files
 export ZSH_SESSIONDIR=~/.cache/zsh/sessions
 

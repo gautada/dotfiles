@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
 
 # Resources for managing and setup of the zsh shell.
 # source $HOME/.config/zsh/env
@@ -7,3 +9,59 @@
 
 # Reload zsh shell
 alias reload="source ~/.zshrc"
+
+zsh_environment_refresh() {
+ current_dir="$(pwd)"
+ echo "[INFO] Current directory: ${current_dir}"
+ cd "${HOME}/.config/repo/public"
+ git pull
+ echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+ cd "${HOME}/.config/repo/private"
+ git pull
+ echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+ reload
+ cd "${current_dir}"
+}
+
+alias refresh="zsh_environment_refresh"
+
+zshlog() {
+ # Define colors using tput (if supported)
+ if tput setaf 1 >/dev/null 2>&1; then
+  UNK=$(tput setaf 4)    # Blue
+  INF=$(tput setaf 2)  # Green
+  WRN=$(tput setaf 3)    # Yellow
+  ERR=$(tput setaf 1)   # Red
+  MSG=$(tput setaf 7)   # White color
+  RST=$(tput sgr0)      # Reset
+ else
+  # Fallback to basic color codes if tput isn't available
+  UNK='\033[1;34m'       # Blue
+  INF='\033[1;32m'       # Green
+  WRN='\033[1;33m'       # Yellow
+  ERR='\033[1;31m'      # Red
+  MSG='\033[1;37m'  # White color
+  RST='\033[0m'         # Reset
+ fi
+
+ case "${1:l}" in
+    "i" | "info")
+      CLR=$INF
+      LVL="INF"
+      ;;
+    "w" | "warn" | "warning")
+      CLR=$WRN
+      LVL="WRN"
+      ;;
+    "e" | "error" | "err")
+      CLR=$ERR
+      LVL="ERR"
+      ;;
+    *)
+      CLR=$UNK
+      LVL="UNK"
+      ;;
+  esac
+  
+ echo -e "${CLR}[${LVL}]${MSG} ${2}${RST}"
+}

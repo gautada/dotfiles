@@ -1,22 +1,11 @@
+#!/bin/zsh
+# Print a colorful log message
+zshlog 'i' "Loading: $(basename $0)"
+
 # source ~/.config/zsh/functions
+
 # Shell Aliases
 alias ls="ls -laH --color"
-
-# [k...] Kubernetes (k8s) Client 
-alias k="container-kubectl"                    # kubectl
-alias krr="container-kubectl rollout restart -n $1 deployment/$2" # rollout restart
-alias ka="container-kubectl apply -f $1"         # Apply a manifest
-alias kd="container-kubectl delete -f "         # Delete
-alias ke="container-kubectl edit "              # Edit
-alias kg="container-kubectl get "               # Get
-alias kl="contianer-kubectl logs --follow "     # Follow Logs
-alias kr="contianer-kubectl rollout restart "   # Restart
-alias kw="container-kubectl get --watch "       # Watch Get
-alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
-alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
-alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
-alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
-
 
 # # [p...] Podman **NOTE**: Clients
 # alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"

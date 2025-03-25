@@ -1,0 +1,60 @@
+#!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
+
+universal-kubectl() {
+ if [ -f "/usr/bin/kubectl" ] ; then
+  /usr/bin/kubectl $@
+ else
+  if [ -f "/usr/local/bin/kubectl" ] ; then
+   /usr/local/bin/kubectl $@
+  fi 
+ fi
+}
+
+kubectl_artifact_from_selection() {
+ echo "${1}" | tr -s "' '" | cut -d "' '" -f2
+}
+
+kubectl_get_artifacts() {
+ artifact_type="${1}"
+ columns="NAMESPACE:.metadata.namespace,NAME:.metadata.name"
+ tmp="$(/opt/homebrew/bin/kubectl get ${artifact_type} --all-namespaces --no-headers -o custom-columns="${columns}")"
+ echo "$tmp" | while IFS= read -r line; do
+    # Collapse multiple spaces into a single space
+    set -- $(echo "$line" | tr -s ' ')
+    echo "--namespace $1 $artifact_type/$2"
+ done
+}
+
+kubectl_select_artifact() {
+ kubectl_get_artifacts $1 | /opt/homebrew/bin/fzf --preview '/opt/homebrew/bin/kubectl describe $(echo {}|tr -s " ") | bat --paging=always  --style=numbers --color=always --language=yaml'
+}
+
+kubectl_rollout_restart() {
+ /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deploy)
+}
+
+kubectl_exec_pod() {
+ /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod) --tty -- /bin/sh
+}
+   
+# [k...] Kubernetes (k8s) Client
+# alias k="container-kubectl"                    # kubectl
+# alias krr="container-kubectl rollout restart -n $1 deployment/$2" # rollout restart
+alias ka="container-kubectl apply -f $1"         # Apply a manifest
+alias kd="container-kubectl delete -f "         # Delete
+# alias ke="container-kubectl edit "              # Edit
+alias kg="container-kubectl get "               # Get
+alias kl="contianer-kubectl logs --follow "     # Follow Logs
+alias kr="contianer-kubectl rollout restart "   # Restart
+alias kw="container-kubectl get --watch "       # Watch Get
+alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
+alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
+alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
+alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
+
+alias k="/opt/homebrew/bin/kubectl"
+alias ke="kubectl_exec_pod"
+alias krr="kubectl_rollout_restart"
+alias ktest="kubectl_select_artifact deploy"

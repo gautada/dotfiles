@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
 
 STARSHIP="$(which starship)"
 # From the installation instructions at https://starship.rs/guide/#🚀-installation

@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
 
 export PATH=~/Bin:$PATH:/Users/mada/.local/bin
 # export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:$SCRDIR:/usr/local/go/bin

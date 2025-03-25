@@ -1,4 +1,6 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
 
 # functions - This is a collection of functions for the default shell, used across MacOS, Alpine, and Debian.
 
@@ -20,15 +22,15 @@
 #  fi
 # }
 
-container-kubectl() {
- if [ -f "/usr/bin/kubectl" ] ; then
-  /usr/bin/kubectl $@
- else
-  if [ -f "/usr/local/bin/kubectl" ] ; then
-   /usr/local/bin/kubectl $@
-  fi
- fi
-}
+# container-kubectl() {
+#  if [ -f "/usr/bin/kubectl" ] ; then
+#   /usr/bin/kubectl $@
+#  else
+#   if [ -f "/usr/local/bin/kubectl" ] ; then
+#    /usr/local/bin/kubectl $@
+#   fi
+#  fi
+# }
 
 container-compose-build() {
  BUILD_ARGS=""

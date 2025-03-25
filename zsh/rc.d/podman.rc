@@ -1,4 +1,7 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
+
 # This was pulled from the functions and alias files.
 podman-build() {
  echo "Image: ${1}"

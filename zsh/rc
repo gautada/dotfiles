@@ -10,9 +10,24 @@
 # - **Automated** - A simple loop ensures all files are included.
 # - **Simple** – You can enable/disable features by adding/removing files.
 
+# Define colors using tput
+if tput setaf 1 >/dev/null 2>&1; then
+  export GREEN=$(tput setaf 2)  # Green
+  export CYAN=$(tput setaf 6)   # Cyan
+  export RESET=$(tput sgr0)     # Reset
+else
+  # Fallback to basic color codes
+  export GREEN='\033[1;32m'
+  export CYAN='\033[1;36m'
+  export RESET='\033[0m'
+fi
 
 for rcfile in ~/.config/zsh/rc.d/*.rc; do
-	[ -r "$rcfile" ] && source "$rcfile"
+ [ -r "$rcfile" ] && source "$rcfile"
 done
 
+# Un-define colors for logging
+unset COLOR_GREEN
+unset COLOR_CYAN
+unset COLOR_RESET
 # source ~/.config/zsh/prompt

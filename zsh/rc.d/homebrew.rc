@@ -1,3 +1,5 @@
 #!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"

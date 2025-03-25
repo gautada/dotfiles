@@ -1,0 +1,7 @@
+#!/bin/zsh
+# Print a colorful log message 
+zshlog 'i' "Loading: $(basename $0)"
+
+# Python Environment Aliases
+alias ~="source ~/.cache/local/bin/activate" # Activate the default venv
+alias ~~="deactivate"                       # Deactivate the current venv
