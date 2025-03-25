@@ -69,6 +69,9 @@ detect_files = ['Dockerfile', 'Containerfile']
 format = 'via [🐋 $context](blue bold)'
 symbol='X'
 
+[fill]
+symbol = " "
+
 [time]
 use_12hr = true
 disabled = false
