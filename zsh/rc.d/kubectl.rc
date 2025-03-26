@@ -32,15 +32,27 @@ kubectl_select_artifact() {
 }
 
 kubectl_rollout_restart() {
- /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deployment "Initiate a rolling restart" $1)
+ artifact=$(kubectl_select_artifact deployment "Initiate a rolling restart" $1)
+ if [ -z $artifact ] ; then
+  echo "No kubectl artifact selected."
+  exit 1
+ fi
+ eval "set -- $artifact"
+ /opt/homebrew/bin/kubectl rollout restart $@
 }
 
 kubectl_logs() {
- /opt/homebrew/bin/kubectl logs $(kubectl_select_artifact pods "Follow logs" $1) --follow
+ artifact=$(kubectl_select_artifact pods "Follow logs" $1)
+ if [ -z $artifact ] ; then
+  echo "No kubectl artifact selected."
+  exit 1
+ fi
+ eval "set -- $artifact"
+ /opt/homebrew/bin/kubectl logs $@ --follow
 }
 
 kubectl_scale() {
- artifact=${"$(kubectl_select_artifact deploy 'Scale deployment' $1)":-""}
+ artifact=$(kubectl_select_artifact deployment 'Scale deployment' $1)
  if [ -z $artifact ] ; then
   echo "No kubectl artifact selected."
   exit 1
@@ -53,7 +65,13 @@ kubectl_scale() {
 }
 
 kubectl_exec_pod() {
- /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod "Jump into container" $1) --tty -- /bin/sh
+ artifact=$(kubectl_select_artifact pod "Connect to pod" $1)
+ if [ -z $artifact ] ; then
+  echo "No kubectl artifact selected."
+  exit 1
+ fi
+ eval "set -- $artifact"
+ /opt/homebrew/bin/kubectl exec -i $@ --tty -- /bin/sh
 }
    
 # [k...] Kubernetes (k8s) Client
