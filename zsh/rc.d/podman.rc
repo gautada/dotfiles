@@ -5,6 +5,7 @@ zshlog 'i' "Loading: $(basename $0)"
 # This was pulled from the functions and alias files.
 podman-build() {
  echo "Image: ${1}"
+ echo "$(pwd | awk -F'/' '{print $NF}')"
  # Generic podman build use the `.arg` file to set params
  ARG_FILE=".arg"
  # file does not exists
