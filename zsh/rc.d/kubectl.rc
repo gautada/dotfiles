@@ -28,33 +28,52 @@ kubectl_get_artifacts() {
 }
 
 kubectl_select_artifact() {
- kubectl_get_artifacts $1 | /opt/homebrew/bin/fzf  --header "$2: Select a '$1'" --preview '/opt/homebrew/bin/kubectl describe $(echo {}|tr -s " ") | bat --paging=always  --style=numbers --color=always --language=yaml'
+ kubectl_get_artifacts $1 | /opt/homebrew/bin/fzf --prompt="$1: " --header="$2" --query="$3" --exact  --preview '/opt/homebrew/bin/kubectl describe $(echo {}|tr -s " ") | bat --paging=always  --style=numbers --color=always --language=yaml'
 }
 
 kubectl_rollout_restart() {
- /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deployment "Initiate a rolling restart")
+ /opt/homebrew/bin/kubectl rollout restart $(kubectl_select_artifact deployment "Initiate a rolling restart" $1)
+}
+
+kubectl_logs() {
+ /opt/homebrew/bin/kubectl logs $(kubectl_select_artifact pods "Follow logs" $1) --follow
+}
+
+kubectl_scale() {
+ artifact=${"$(kubectl_select_artifact deploy 'Scale deployment' $1)":-""}
+ if [ -z $artifact ] ; then
+  echo "No kubectl artifact selected."
+  exit 1
+ fi
+ eval "set -- $artifact"
+ echo -n "Number of replicas [0]: "
+ read replicas
+ replicas=${replicas:-0}
+ /opt/homebrew/bin/kubectl scale $@ --replicas=$replicas
 }
 
 kubectl_exec_pod() {
- /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod "Jump into container") --tty -- /bin/sh
+ /opt/homebrew/bin/kubectl exec -i $(kubectl_select_artifact pod "Jump into container" $1) --tty -- /bin/sh
 }
    
 # [k...] Kubernetes (k8s) Client
 # alias k="container-kubectl"                    # kubectl
 # alias krr="container-kubectl rollout restart -n $1 deployment/$2" # rollout restart
-alias ka="container-kubectl apply -f $1"         # Apply a manifest
-alias kd="container-kubectl delete -f "         # Delete
+# alias ka="container-kubectl apply -f $1"         # Apply a manifest
+# alias kd="container-kubectl delete -f "         # Delete
 # alias ke="container-kubectl edit "              # Edit
-alias kg="container-kubectl get "               # Get
-alias kl="contianer-kubectl logs --follow "     # Follow Logs
-alias kr="contianer-kubectl rollout restart "   # Restart
-alias kw="container-kubectl get --watch "       # Watch Get
-alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
-alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
-alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
-alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
+# alias kg="container-kubectl get "               # Get
+# alias kl="contianer-kubectl logs --follow "     # Follow Logs
+# alias kr="contianer-kubectl rollout restart "   # Restart
+# alias kw="container-kubectl get --watch "       # Watch Get
+# alias kx="container-kubectl exec -it $1 $2 -- /bin/sh"
+# alias krr='contianer-kubectl rollout restart -n $1 deployment $2'
+# alias ktt='$(pwd) ; echo $1 ; echo $2' # ${PWD##*/}
+# alias krri="contianer-kubectl rollout restart -n ingress daemonset/nginx-ingress-microk8s-controller"
 
 alias k="/opt/homebrew/bin/kubectl"
 alias ke="kubectl_exec_pod"
+alias kl="kubectl_logs"
 alias krr="kubectl_rollout_restart"
-alias ktest="kubectl_select_artifact deploy"
+alias ks="kubectl_scale"
+# alias ktest="kubectl_select_artifact deploy"
