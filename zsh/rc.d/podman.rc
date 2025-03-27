@@ -38,6 +38,7 @@ podman-run() {
  --tty \
  --volume Data:/mnt/volumes/container \
  --volume Configmaps:/mnt/volumes/configmaps \
+ --volume Secrets:/mnt/volumes/secrets \
  '${1}:dev' /bin/sh"
  echo "${_CMD}"
  eval "${_CMD}"
@@ -53,3 +54,4 @@ podman-run() {
 alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
 alias pc="podman rmi --force --all"
 alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+alias pe="podman exec -it $(pwd | awk -F'/' '{print $NF}') /bin/sh"

@@ -33,9 +33,9 @@ kubectl_select_artifact() {
 
 kubectl_rollout_restart() {
  artifact=$(kubectl_select_artifact deployment "Initiate a rolling restart" $1)
- if [ -z $artifact ] ; then
+ if [ $? -eq 130 ] ; then
   echo "No kubectl artifact selected."
-  exit 1
+  return 1
  fi
  eval "set -- $artifact"
  /opt/homebrew/bin/kubectl rollout restart $@
@@ -43,9 +43,9 @@ kubectl_rollout_restart() {
 
 kubectl_logs() {
  artifact=$(kubectl_select_artifact pods "Follow logs" $1)
- if [ -z $artifact ] ; then
+ if [ $? -eq 130 ] ; then
   echo "No kubectl artifact selected."
-  exit 1
+  return 1
  fi
  eval "set -- $artifact"
  /opt/homebrew/bin/kubectl logs $@ --follow
@@ -53,9 +53,9 @@ kubectl_logs() {
 
 kubectl_scale() {
  artifact=$(kubectl_select_artifact deployment 'Scale deployment' $1)
- if [ -z $artifact ] ; then
+ if [ $? -eq 130 ] ; then
   echo "No kubectl artifact selected."
-  exit 1
+  return 1
  fi
  eval "set -- $artifact"
  echo -n "Number of replicas [0]: "
@@ -66,9 +66,9 @@ kubectl_scale() {
 
 kubectl_exec_pod() {
  artifact=$(kubectl_select_artifact pod "Connect to pod" $1)
- if [ -z $artifact ] ; then
+ if [ $? -eq 130 ] ; then
   echo "No kubectl artifact selected."
-  exit 1
+  return 1
  fi
  eval "set -- $artifact"
  /opt/homebrew/bin/kubectl exec -i $@ --tty -- /bin/sh
