@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Print a colorful log message 
-zshlog 'i' "Loading: $(basename $0)"
 
 # GIT Environment Aliases
 alias gs='git status'

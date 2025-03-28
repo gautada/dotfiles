@@ -1,7 +1,4 @@
 #!/bin/zsh
-# Print a colorful log message 
-zshlog 'i' "Loading: $(basename $0)"
-
 universal-kubectl() {
  if [ -f "/usr/bin/kubectl" ] ; then
   /usr/bin/kubectl $@

@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+alias vim="/opt/homebrew/bin/nvim"

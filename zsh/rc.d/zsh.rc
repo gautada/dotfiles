@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Print a colorful log message 
-zshlog 'i' "Loading: $(basename $0)"
 
 # Resources for managing and setup of the zsh shell.
 # source $HOME/.config/zsh/env

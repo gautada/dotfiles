@@ -54,6 +54,7 @@ zshlog() {
 
 # Load all of the drop-ins
 for rcfile in ~/.config/zsh/rc.d/*.rc; do
+ zshlog info "Loading $rcfile"
  [ -r "$rcfile" ] && source "$rcfile"
 done
 

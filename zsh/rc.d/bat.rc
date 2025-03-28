@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Print a colorful log message 
-zshlog 'i' "Loading: $(basename $0)"
 
 # [bat](https://github.com/sharkdp/bat) is a cat(1) clone 
 # with syntax highlighting and Git integration.

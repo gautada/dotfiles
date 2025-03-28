@@ -1,0 +1,49 @@
+#!/bin/zsh
+
+gist_fetch_all() {
+   # Replace with your GitHub username and personal access token
+   source "${HOME}/.config/repo/private/github/env"
+
+   # Get the list of gists from the GitHub API (replace your token and username)
+   curl -s -u "${GITHUB_USERNAME}:${GITHUB_TOKEN}" \
+    "https://api.github.com/users/$GITHUB_USERNAME/gists" | jq \
+    '.[] | select(has("files")) | .files | to_entries[] | {filename: .value.filename, raw_url: .value.raw_url}'
+}
+
+gitea_test() {
+  echo "FOO"
+}
+gist_raw_select() {
+  # FILE=$(echo "${1}" | jq -r '.filename' | /opt/homebrew/bin/fzf --preview "echo '${GIST}' | jq -r --arg file '${FILE}' | bat")
+  # echo "${GIST}" | jq -r --arg file "${FILE}" 'select(.filename == $file) .raw_url' | xargs curl -s | bat
+  # --preview "echo $GIST | jq -r --arg file "ci.yaml" 'select(.filename == $file) .raw_url' | xargs curl -s | bat")
+  # URL=$(echo "${GIST}" | jq -r --arg file "${FILE}" 'select(.filename == $file) .raw_url')
+  # if [ -f "${FILE}" ] ; then
+  #  mv "${FILE}" "${FILE}~"
+  # fi
+  # curl -s "${URL}" -o "${FILE}"
+
+  echo "${1}" | jq -r '.filename' | /opt/homebrew/bin/fzf --preview "echo '${GIST}' | jq -r 'select(.filename == \"{}\") .raw_url' | xargs curl -s | bat --paging=always  --style=numbers --color=always"
+  # URL=$(echo "${GIST}" | jq -r --arg file "${FILE}" 'select(.filename == $file) .raw_url')
+  # if [ -f "${FILE}" ] ; then
+  # | jq -r 'select(.filename == \"{}\")'"
+}
+
+gist_select() {
+  export GIST=$(gist_fetch_all)
+  FILE=$(gist_raw_select "${GIST}")
+  URL=$(echo "${GIST}" | jq -r --arg file "${FILE}" 'select(.filename == $file) .raw_url')
+  unset GIST
+  if [ -f "${FILE}~" ] ; then
+   echo "[ERR] There is a backup file already in place, clear and run again."
+   return
+  fi
+    if [ -f "${FILE}" ] ; then
+   mv "${FILE}" "${FILE}~"
+  fi
+  curl -s "${URL}" -o "${FILE}"
+  if [ -f "${FILE}~" ] ; then
+   bat --paging=always --style=numbers --color=always --diff "${FILE}" "${FILE}~"
+  fi
+}
+alias gf="gist_select"

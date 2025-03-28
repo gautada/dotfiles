@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+alias pcr="pre-commit run --all-files"

@@ -1,6 +1,4 @@
 #!/bin/zsh
-# Print a colorful log message 
-zshlog 'i' "Loading: $(basename $0)"
 
 # Set the new .zcomp directory
 ZSH_COMPDIR=~/.cache/zsh/comp
