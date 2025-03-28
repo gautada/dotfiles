@@ -1,3 +1,4 @@
 #!/bin/zsh
 
+alias vi="/opt/homebrew/bin/nvim"
 alias vim="/opt/homebrew/bin/nvim"
