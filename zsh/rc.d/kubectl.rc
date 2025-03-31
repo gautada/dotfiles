@@ -48,6 +48,8 @@ kubectl_logs() {
  /opt/homebrew/bin/kubectl logs $@ --follow
 }
 
+# Functional implementation of 
+# [K8S PVC Terminate](https://veducate.co.uk/kubernetes-pvc-terminating/)
 kubectl_kill_pvc() {
  artifact=$(kubectl_select_artifact pvc "Persistent Volume Claims" $1)
  if [ $? -eq 130 ] ; then
