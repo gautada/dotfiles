@@ -29,10 +29,11 @@
 -- and links to setup/config documentation.
 --
 -- [Language Servers](https://github.com/gautada/dotfiles/issues/5):
--- - html
+-- -
 -- - lua [lua_ls]()https://luals.github.io/#neovim-install
 -- -
 -- - python
+-- - sh [bashls]()
 -- - YAML [yamlls](https://github.com/redhat-developer/yaml-language-server)
 return {
 	{
@@ -47,7 +48,7 @@ return {
 		lazy = false,
 		opts = {
 			auto_install = true,
-			ensure_installed = { "lua_ls", "yamlls" },
+			ensure_installed = { "bashls", "lua_ls", "yamlls" },
 		},
 	},
 	{
@@ -69,6 +70,11 @@ return {
 			-- lspconfig.html.setup({
 			--   capabilities = capabilities,
 			-- })
+			lspconfig.bashls.setup({
+				capabilities = capabilities,
+				filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
+			})
+
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 			})
