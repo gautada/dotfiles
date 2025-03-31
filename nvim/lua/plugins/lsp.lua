@@ -29,12 +29,11 @@
 -- and links to setup/config documentation.
 --
 -- [Language Servers](https://github.com/gautada/dotfiles/issues/5):
--- -
--- - lua [lua_ls]()https://luals.github.io/#neovim-install
--- -
--- - python
--- - sh [bashls]()
--- - YAML [yamlls](https://github.com/redhat-developer/yaml-language-server)
+-- - [bashls](https://github.com/bash-lsp/bash-language-server)
+-- - [dockerls](https://github.com/rcjsuen/dockerfile-language-server)
+-- - [lua_ls]()https://luals.github.io/#neovim-install
+-- - [pyright](https://github.com/microsoft/pyright)
+-- - [yamlls](https://github.com/redhat-developer/yaml-language-server)
 return {
 	{
 		"williamboman/mason.nvim",
@@ -48,7 +47,7 @@ return {
 		lazy = false,
 		opts = {
 			auto_install = true,
-			ensure_installed = { "bashls", "lua_ls", "yamlls" },
+			ensure_installed = { "bashls", "dockerls", "lua_ls", "pyright", "yamlls" },
 		},
 	},
 	{
@@ -58,24 +57,24 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local lspconfig = require("lspconfig")
-			-- lspconfig.tsserver.setup({
-			--   capabilities = capabilities
-			-- })
-			-- lspconfig.ts_ls.setup({
-			--   capabilities = capabilities,
-			-- })
-			-- lspconfig.solargraph.setup({
-			--   capabilities = capabilities,
-			-- })
-			-- lspconfig.html.setup({
-			--   capabilities = capabilities,
-			-- })
+			-- old: tsserver to ts_ls.setup
+			-- remove: solargraph
+			-- install and configure: html??, markdownlint
+			-- python: **ruff
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
 			})
 
+			lspconfig.dockerls.setup({
+				capabilities = capabilities,
+				filetypes = { "dockerfile", "Containerfile", "Dockerfile" },
+			})
+
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.pyright.setup({
 				capabilities = capabilities,
 			})
 			lspconfig.yamlls.setup({
@@ -92,15 +91,6 @@ return {
 					},
 				},
 			})
-			-- lspconfig.pyright.setup({
-			--   capabilities = capabilities,
-			-- })
-			-- lspconfig.ruff.setup({
-			--   capabilities = capabilities,
-			-- })
-			-- lspconfig.markdownlint.setup({
-			--   capabilities = capabilities,
-			-- })
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})

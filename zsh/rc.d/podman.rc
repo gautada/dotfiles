@@ -29,11 +29,10 @@ podman-run() {
  fi
  _CMD="podman run \
  --env-file '${ENV_FILE}' \
- --interactive \
+ --detach \
  --name '${1}' \
  --publish 8080:8080 \
  --rm \
- --tty \
  --volume Data:/mnt/volumes/container \
  --volume Configmaps:/mnt/volumes/configmaps \
  --volume Secrets:/mnt/volumes/secrets \
@@ -42,14 +41,21 @@ podman-run() {
  eval "${_CMD}"
  unset _CMD
 }
-# --volume Data:/mnt/volumes/container \
-# --volume Backup:/mnt/volumes/backup \
-# --volume Configmaps:/mnt/volumes/configmaps \
 # --volume Secrets:/mnt/volumes/secrets \
+
+podman-exec() {
+ _CMD="podman exec \
+ --interactive \
+ --tty \
+ '${1}' /bin/sh"
+ echo "${_CMD}"
+ eval "${_CMD}"
+ unset _CMD
+}
 
 
 # [p...] Podman **NOTE**: Clients
 alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
 alias pc="podman rmi --force --all"
 alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
-alias pe="podman exec -it $(pwd | awk -F'/' '{print $NF}') /bin/sh"
+alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
