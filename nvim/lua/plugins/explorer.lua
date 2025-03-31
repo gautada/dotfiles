@@ -1,4 +1,6 @@
 -- Plugin Spec: [Neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim)
+-- Need to be able to toggle . file
+-- Need to be able to go above current folder -- or bring back nvim-tree
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
