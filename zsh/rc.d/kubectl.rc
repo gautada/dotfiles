@@ -48,6 +48,17 @@ kubectl_logs() {
  /opt/homebrew/bin/kubectl logs $@ --follow
 }
 
+kubectl_kill_pvc() {
+ artifact=$(kubectl_select_artifact pvc "Persistent Volume Claims" $1)
+ if [ $? -eq 130 ] ; then
+  echo "No kubectl artifact selected."
+  return 1
+ fi
+ eval "set -- $artifact"
+ /opt/homebrew/bin/kubectl patch $@ -p '{"metadata":{"finalizers":null}}'
+}
+
+
 kubectl_scale() {
  artifact=$(kubectl_select_artifact deployment 'Scale deployment' $1)
  if [ $? -eq 130 ] ; then

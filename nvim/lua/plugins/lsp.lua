@@ -28,12 +28,12 @@
 -- These are the list of my target LSPs for my personal setup to provide status
 -- and links to setup/config documentation.
 --
--- Language Servers:
+-- [Language Servers](https://github.com/gautada/dotfiles/issues/5):
 -- - html
--- - [X] lua - [lua_ls]()https://luals.github.io/#neovim-install
+-- - lua [lua_ls]()https://luals.github.io/#neovim-install
 -- - 
 -- - python
--- -  
+-- - YAML [yamlls](https://github.com/redhat-developer/yaml-language-server)
 return {
   {
     "williamboman/mason.nvim",
@@ -47,7 +47,7 @@ return {
     lazy = false,
     opts = {
       auto_install = true,
-      ensure_installed = { "lua_ls", "rust_analyzer" },
+      ensure_installed = { "lua_ls", "yamlls" },
     },
   },
   {
@@ -60,27 +60,30 @@ return {
       -- lspconfig.tsserver.setup({
       --   capabilities = capabilities
       -- })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.solargraph.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
+      -- lspconfig.ts_ls.setup({
+      --   capabilities = capabilities,
+      -- })
+      -- lspconfig.solargraph.setup({
+      --   capabilities = capabilities,
+      -- })
+      -- lspconfig.html.setup({
+      --   capabilities = capabilities,
+      -- })
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
-      lspconfig.pyright.setup({
+      lspconfig.yamlls.setup({
         capabilities = capabilities,
       })
-      lspconfig.ruff.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.markdownlint.setup({
-        capabilities = capabilities,
-      })
+      -- lspconfig.pyright.setup({
+      --   capabilities = capabilities,
+      -- })
+      -- lspconfig.ruff.setup({
+      --   capabilities = capabilities,
+      -- })
+      -- lspconfig.markdownlint.setup({
+      --   capabilities = capabilities,
+      -- })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
