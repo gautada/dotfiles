@@ -1,0 +1,16 @@
+-- Plugin Spec: [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+-- To test that treesitter is installed `:TSModuleInfo`
+return {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      local config = require("nvim-treesitter.configs")
+      config.setup({
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+  }
+}
