@@ -1,3 +1,8 @@
+-- # Plug-in Spec: Style
+--
+-- ## Plug-ins
+--
+-- - [Column](https://github.com/lukas-reineke/virt-column.nvim)
 return {
   {
     "lukas-reineke/virt-column.nvim",
