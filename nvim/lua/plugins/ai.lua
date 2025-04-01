@@ -1,6 +1,7 @@
 -- # Plug-In Spec: AI
 --
--- This is an attempt to setup an in editor AI
+-- This is an attempt to setup an in editor AI. The OPENAI_API_KEY is set using
+-- the private repo dotenv file.
 --
 -- ## Sub Plug-In(s)
 --

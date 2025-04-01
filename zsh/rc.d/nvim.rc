@@ -1,4 +1,7 @@
 #!/bin/zsh
 
+export $(grep -v '^#' "${HOME}/.config/repo/private/zsh/env" | xargs)
+
+
 alias vi="/opt/homebrew/bin/nvim"
 alias vim="/opt/homebrew/bin/nvim"
