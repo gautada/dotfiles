@@ -20,42 +20,56 @@
 -- client is available.
 -- -- Configure the `null_ls` setup configuration below.
 --
--- ### Formatting
---
--- - **markdownlint**
--- - [shfmt](https://github.com/mvdan/sh)
---   - * `brew install shfmt`
--- - [stylua](https://github.com/JohnnyMorganz/StyLua)
---   - * `brew install sylua`
---
 -- ### Linters
 --
--- - [luacheck](https://github.com/lunarmodules/luacheck) 
+-- - [hadolint](https://github.com/hadolint/hadolint)
+--   - `brew install hadolint`
+-- - [luacheck](https://github.com/lunarmodules/luacheck)
+--   - `brew install luacheck`
 -- - [markdownlint](https://github.com/igorshubovych/markdownlint-cli)
 --   - * `brew install markdownlint-cli`
--- - [shellcheck](https://www.shellcheck.net/)
---   - * `brew install shellcheck`
+-- - **ruff**
+-- - [shellharden]( https://github.com/koalaman/shellharden)
+--   - * `brew install shellharden`
+-- - [yamllint](https://github.com/adrienverge/yamllint)
+--   - `brew install yamllint`
+--
+-- ### Formatting
+--
+-- - Dockerfile?
+-- - **markdownlint**
+-- - **ruff**
+-- - **shellharden**
+-- - [stylua](https://github.com/JohnnyMorganz/StyLua)
+--   - * `brew install sylua`
+-- - [yamlfix](https://github.com/lyz-code/yamlfix)
+--   - `brew install yamlfix`
+-- - [yamlfmt](https://github.com/google/yamlfmt)
+--   - `brew install yamlfmt`
 return {
-	"nvimtools/none-ls.nvim",
-	config = function()
-		local null_ls = require("null-ls")
-		null_ls.setup({
-			sources = {
-				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.diagnostics.markdownlint,
-				-- sh&zsh
-				null_ls.builtins.diagnostics.shellcheck,
-				null_ls.builtins.formatting.shfmt.with({
-					extra_args = { "-i", "2" }, -- Set indentation to 2 spaces
-				}),
+  "nvimtools/none-ls.nvim",
+  config = function()
+    local null_ls = require("null-ls")
+    null_ls.setup({
+      sources = {
+        null_ls.builtins.diagnostics.hadolint,
+        null_ls.builtins.diagnostics.luacheck,
+        null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.ruff,
+        null_ls.builtins.diagnostics.shellharden,
+        null_ls.builtins.diagnostics.yamllint,
 
-				-- null_ls.builtins.formatting.prettier,
-				--- null_ls.builtins.diagnostics.erb_lint,
-				-- null_ls.builtins.diagnostics.rubocop,
-				-- null_ls.builtins.formatting.rubocop,
-			},
-		})
+        null_ls.builtins.formatting.markdownlint,
+        null_ls.builtins.formatting.shellharden,
+        null_ls.builtins.formatting.shfmt.with({
+          extra_args = { "-i", "2" }, -- Set indentation to 2 spaces
+        }),
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.yamlfmt,
+        -- null_ls.builtins.formatting.yamlfix,
+      },
+    })
 
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-	end,
+    vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+  end,
 }

@@ -30,76 +30,83 @@
 --
 -- [Language Servers](https://github.com/gautada/dotfiles/issues/5):
 -- - [bashls](https://github.com/bash-lsp/bash-language-server)
+--   - `brew install bash-language-server`
 -- - [dockerls](https://github.com/rcjsuen/dockerfile-language-server)
--- - [lua_ls]()https://luals.github.io/#neovim-install
+--   - `brew install dockerfile-language-server`
+-- - [lua_ls](https://github.com/LuaLS/lua-language-server)
+--   - `brew install lua-
 -- - [pyright](https://github.com/microsoft/pyright)
+--   - `brew install pyright`
+-- - [ruff](https://github.com/astral-sh/ruff/)
+--   - `brew install ruff`
 -- - [yamlls](https://github.com/redhat-developer/yaml-language-server)
+--   - `brew install yaml-language-server`
 return {
-	{
-		"williamboman/mason.nvim",
-		lazy = false,
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
-		opts = {
-			auto_install = true,
-			ensure_installed = { "bashls", "dockerls", "lua_ls", "pyright", "yamlls" },
-		},
-	},
-	{
-		"neovim/nvim-lspconfig",
-		lazy = false,
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup()
+    end,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    opts = {
+      auto_install = true,
+      ensure_installed = { "bashls", "dockerls", "lua_ls", "ruff", "yamlls" },
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			local lspconfig = require("lspconfig")
-			-- old: tsserver to ts_ls.setup
-			-- remove: solargraph
-			-- install and configure: html??, markdownlint
-			-- python: **ruff
-			lspconfig.bashls.setup({
-				capabilities = capabilities,
-				filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
-			})
+      local lspconfig = require("lspconfig")
+      -- old: tsserver to ts_ls.setup
+      -- remove: solargraph
+      -- install and configure: html??, markdownlint
+      -- python: **ruff
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+        filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
+      })
 
-			lspconfig.dockerls.setup({
-				capabilities = capabilities,
-				filetypes = { "dockerfile", "Containerfile", "Dockerfile" },
-			})
+      lspconfig.dockerls.setup({
+        capabilities = capabilities,
+        filetypes = { "dockerfile", "Containerfile", "Dockerfile" },
+      })
 
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.pyright.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.yamlls.setup({
-				capabilities = capabilities,
-				settings = {
-					yaml = {
-						-- schemas = {
-						-- 	kubernetes = "/*.yaml",
-						-- 	["https://json.schemastore.org/github-action.json"] = "/.github/workflows/*",
-						-- },
-						validate = true,
-						format = { enable = true },
-						hover = true,
-					},
-				},
-			})
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
-			-- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
-			-- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
-			-- vim.diagnostic.config({virtual_text = { current_line = true }})
-			vim.diagnostic.config({ virtual_lines = { current_line = true } })
-		end,
-	},
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.ruff.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.yamlls.setup({
+        capabilities = capabilities,
+        settings = {
+          yaml = {
+            -- schemas = {
+            -- 	kubernetes = "/*.yaml",
+            -- 	["https://json.schemastore.org/github-action.json"] = "/.github/workflows/*",
+            -- },
+            validate = true,
+            format = { enable = true },
+            hover = true,
+          },
+        },
+      })
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
+      -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
+      -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
+      -- vim.diagnostic.config({virtual_text = { current_line = true }})
+      vim.diagnostic.config({ virtual_lines = { current_line = true } })
+    end,
+  },
 }
