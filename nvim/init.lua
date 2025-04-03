@@ -1,16 +1,17 @@
+-- # Neovim Setup
+--
 -- Simple setup with lazy package manager and modular setup
-
-require("options")
+--
+-- ## Configure
+--
+-- ### Options
+-- 
+-- Vim tooling options not havingto do with specifific plugins.
+--
+-- ### lazy
+--
+-- Setup the Lava.nvim package manager.
+require("config.options")
 require("config.lazy")
 
 
--- Plugin Checklist
--- [X] theme.lua catppucin
--- [X] telescople
--- [X] explorer - neo-tree can load buffers or filesystem / https://github.com/stevearc/oil.nvim 
--- [X] terminal - 
--- [ ] tabs / harpoon
--- [X] comments - 
--- [ ] lsp -
--- [ ] welcome - 
--- [X] treesitter - ???
