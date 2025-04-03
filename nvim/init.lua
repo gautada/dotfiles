@@ -1,4 +1,5 @@
 -- Simple setup with lazy package manager and modular setup
+
 require("options")
 require("config.lazy")
 

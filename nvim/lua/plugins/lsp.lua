@@ -54,7 +54,7 @@ return {
     lazy = false,
     opts = {
       auto_install = true,
-      ensure_installed = { "bashls", "dockerls", "lua_ls", "ruff", "yamlls" },
+      ensure_installed = { "bashls", "dockerls", "lua_ls", "pyright", "ruff", "yamlls" },
     },
   },
   {
@@ -81,7 +81,7 @@ return {
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
-      lspconfig.ruff.setup({
+      lspconfig.pyright.setup({
         capabilities = capabilities,
       })
       lspconfig.yamlls.setup({
@@ -103,8 +103,8 @@ return {
       vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
-      -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
-      -- vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
+      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
+      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
       -- vim.diagnostic.config({virtual_text = { current_line = true }})
       vim.diagnostic.config({ virtual_lines = { current_line = true } })
     end,
