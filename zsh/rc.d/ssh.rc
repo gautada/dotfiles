@@ -1,0 +1,13 @@
+#!/bin/zsh
+#
+# ssh.rc - Declarative configuration for ssh
+
+# dotfiles_does_not_exist ${HOME}/.ssh
+CONFIG_FOLDER="${HOME}/.config/ssh"
+TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/ssh"
+dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+
+SSH_CONFIG="${CONFIG_FOLDER}/config"
+dotfiles_file_exists $SSH_CONFIG
+
+

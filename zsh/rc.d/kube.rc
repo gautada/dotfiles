@@ -1,4 +1,17 @@
 #!/bin/zsh
+#
+# kube.rc - All the kubectl resources needed.
+
+dotfiles_does_not_exist "${HOME}/.kube"
+CONFIG_FOLDER="${HOME}/.config/kube"
+TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/kube"
+dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+
+export KUBECONFIG="${HOME}/.config/kube/config"
+dotfiles_file_exists $KUVWCONFIG
+
+
+
 universal-kubectl() {
  if [ -f "/usr/bin/kubectl" ] ; then
   /usr/bin/kubectl $@

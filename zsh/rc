@@ -48,8 +48,34 @@ zshlog() {
       LVL="UNK"
       ;;
   esac
-  
- echo -e "${CLR}[${LVL}]${MSG} ${2}${RST}"
+ MSG=$2
+ echo -e "${CLR}[${LVL}]${MSG}${RST}"
+}
+
+dotfiles_does_not_exist() {
+if [ -e "$1" ] || [ -L "$1" ]; then
+    zshlog "Error" "Setup Error: The path ${1} must NOT exist."
+    # exit 400
+  fi
+}
+
+dotfiles_config_folder() {
+  CONFIG_FOLDER=$1
+  TARGET_FOLDER=$2
+  if [ ! -L $CONFIG_FOLDER ] || 
+    [ "$(/usr/bin/readlink ${CONFIG_FOLDER})" != "${TARGET_FOLDER}" ]; then
+    zshlog "Error" \
+           "Setup Error: ${CONFIG_FOLDER} is not linked to ${TARGET_FOLDER}" 
+    # exit 401
+  fi
+}
+
+dotfiles_file_exists() {
+  CONFIG_FILE=$1
+  if [ ! -f $CONFIG_FILE ]; then
+    zshlog "Error" "Setup Error: Config file ${CONFIG_FILE} does not exist."
+    # exit 402
+  fi
 }
 
 # Load all of the drop-ins

@@ -1,0 +1,15 @@
+#!/bin/zsh
+#
+# aws.rc - AWS config file location setup
+
+CONFIG_FOLDER="${HOME}/.config/aws"
+TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/aws"
+dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+
+export AWS_CONFIG_FILE="${HOME}/.config/aws/config"
+dotfiles_file_exists $AWS_CONFIG_FILE
+
+
+export AWS_SHARED_CREDENTIALS_FILE="${HOME}/.config/aws/credentials"
+dotfiles_file_exists $AWS_SHARED_CREDENTIALS_FILE
+
