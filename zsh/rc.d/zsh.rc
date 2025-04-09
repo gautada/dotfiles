@@ -10,30 +10,16 @@ export XDG_RUNTIME_HOME=$HOME/.var
 # export SCRDIR=$XDG_CONFIG_HOME/scripts
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-# export ZSHRC=$HOME/.zshrc
-# export ZDOTRC=$ZDOTDIR/rc
-# export ZENV=$HOME/.zenv
-# export ZDOTENV=$ZDOTDIR/env
-# export ZPROFILE=$HOME/.zprofile
-# export ZDOTPROFILE=$ZDOTDIR/profile
-# export ZLOGIN=$HOME/.zlogin
-# export ZDOTLOGIN=$ZDOTDIR/login
-# export ZLOGOUT=$HOME/.zlogout
-# export ZDOTLOGOUT=$ZDOTDIR/logout
 
-# export HISTFILE="$HOME/.cache/history"
-# export HISTSIZE=10000000
-# export SAVEHIST=10000000
+# Load private environment variables
+PRIVATE_ENV="${HOME}/.local/share/dotfiles/private/zsh/env"
+if [ ! -f $PRIVATE_ENV ] ; then 
+  zshlog "Error" "Private environment variables file ${PRIVATE_ENV} must exist."
+else
+  # export $(grep -v '^#' $PRIVATE_ENV | xargs)
+  source "${PRIVATE_ENV}"
+fi
 
-
-# Private environment variables
-
-export $(grep -v '^#' "${HOME}/.local/share/dotfiles/private/zsh/env" | xargs)
-
-# Resources for managing and setup of the zsh shell.
-# source $HOME/.config/zsh/env
-# source $ZDOTDIR/aliases
-# source $ZDOTDIR/prompt
 
 
 # **************** SESSIONS *******************
@@ -58,8 +44,25 @@ zsh_environment_refresh() {
  cd "${current_dir}"
 }
 
-alias refresh="zsh_environment_refresh"
+zsh_environment_upload() {
+ current_dir="$(pwd)"
+ echo "[INFO] Current directory: ${current_dir}"
+ cd "${HOME}/.local/share/dotfiles/public"
+ git add .
+ git commit -am "Uploading latest dotfiles"
+ git push
+ echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+ cd "${HOME}/.local/share/dotfiles/private"
+ git add .
+ git commit -am "Uploading latest dotfiles"
+ git push
+ echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+ refresh
+ cd "${current_dir}"
+}
 
+alias refresh="zsh_environment_refresh"
+alias upload="zsh_environment_upload"
 # *********COMPLETIONS **************
 # Set the new .zcomp directory
 ZSH_COMPDIR=~/.cache/zsh/comp
