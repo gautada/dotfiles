@@ -9,6 +9,6 @@ python_activate() {
 }
 
 # Python Environment Aliases
-alias ~="python_Activate" # Activate the default venv
+alias ~="python_activate" # Activate the default venv
 alias ~~="deactivate"                       # Deactivate the current venv
 

@@ -12,34 +12,54 @@ add_newline = false
 command_timeout = 1000
 
 format = """$os\
+$env_var\
+$docker_context\
 $hostname\
 $directory\
 $fill\
 $time\
-
 $git_branch\
 $git_status\
-$docker_context\
-$python\
 $cmd_duration\
 \n\
 $character"""
 
 [os]
 # OS Icon
-format = '[$symbol](sky) '
+style = 'bg:sky fg:black'
+format = '[ $symbol ]($style)'
 disabled = false
 
 [os.symbols]
-Windows = ' '
-Alpine = ""
+Windows = ''
+Alpine = ''
 Ubuntu = ''
 Macos = ''
+
+[env_var.VIRTUAL_ENV_PROMPT]
+symbol = ''
+style = 'bg:sky fg:black'
+format = '[$symbol ]($style)'
+disabled = false
+
+[docker_context]
+symbol = '󰡨'
+style = 'bg:sky fg:black'
+format = '[$symbol ]($style)'
+only_with_files = true
+detect_files = ['Containerfile']
+disabled = false
+
+# [python]
+# symbol = ''
+# style = 'bold blue'
+# format = '[$symbol]($style) '
+# disabled = false
 
 # Shows the hostname
 [hostname]
 ssh_only = false
-format = '[$hostname](sky)'
+format = ' [$hostname](sky)'
 disabled = false
 
 # Shows current directory
@@ -62,12 +82,6 @@ error_symbol = '[-](red) '
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
-
-[docker_context]
-disabled = false
-detect_files = ['Dockerfile', 'Containerfile']
-format = 'via [🐋 $context](blue bold)'
-symbol='X'
 
 [fill]
 symbol = " "
@@ -110,12 +124,6 @@ staged = '[++\($count\)](green)'
 renamed = '襁 '
 deleted = ' '
 
-[python]
-symbol = ''
-style = 'bold blue'
-# format = '[${symbol}${pyenv_prefix}\(($virtualenv) ${version}\)]($style) '
-format = '[$symbol]($style) '
-disabled = false
 
 [cmd_duration]
 style = 'subtext1'
