@@ -16,6 +16,10 @@ return {
   --
   -- - [alhpa](https://github.com/goolord/alpha-nvim)
   --
+  -- ### Notes
+  --
+  -- - [Medium Article](https://medium.com/@shaikzahid0713/alpha-start-up-screen-8e4a6e95804d)
+  --
   {
     "goolord/alpha-nvim",
     dependencies = {
@@ -24,26 +28,42 @@ return {
 
     config = function()
       local alpha = require("alpha")
-      local dashboard = require("alpha.themes.startify")
-
+      -- local dashboard = require("alpha.themes.startify")
+      local dashboard = require("alpha.themes.dashboard")
       dashboard.section.header.val = {
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                     ]],
-        [[       ████ ██████           █████      ██                     ]],
-        [[      ███████████             █████                             ]],
-        [[      █████████ ███████████████████ ███   ███████████   ]],
-        [[     █████████  ███    █████████████ █████ ██████████████   ]],
-        [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-        [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-        [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
-        [[                                                                       ]],
+      [[                                                   ]],
+      [[                                              ___  ]],
+      [[                                           ,o88888 ]],
+      [[                                        ,o8888888' ]],
+      [[                  ,:o:o:oooo.        ,8O88Pd8888"  ]],
+      [[              ,.::.::o:ooooOoOoO. ,oO8O8Pd888'"    ]],
+      [[            ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O"      ]],
+      [[           , ..:.::o:ooOoOOOO8OOOOo.FdO8O8"        ]],
+      [[          , ..:.::o:ooOoOO8O888O8O,COCOO"          ]],
+      [[         , . ..:.::o:ooOoOOOO8OOOOCOCO"            ]],
+      [[          . ..:.::o:ooOoOoOO8O8OCCCC"o             ]],
+      [[             . ..:.::o:ooooOoCoCCC"o:o             ]],
+      [[             . ..:.::o:o:,cooooCo"oo:o:            ]],
+      [[          `   . . ..:.:cocoooo"'o:o:::'            ]],
+      [[          .`   . ..::ccccoc"'o:o:o:::'             ]],
+      [[         :.:.    ,c:cccc"':.:.:.:.:.'              ]],
+      [[       ..:.:"'`::::c:"'..:.:.:.:.:.'               ]],
+      [[     ...:.'.:.::::"'    . . . . .'                 ]],
+      [[    .. . ....:."' `   .  . . ''                    ]],
+      [[  . . . ...."'                                     ]],
+      [[  .. . ."'                                         ]],
+      [[ .                                                 ]],
+      [[                                                   ]],
       }
-
+      dashboard.section.buttons.val = {
+        dashboard.button("o", "  Open File", ":Neotree filesystem reveal float <CR>"),
+        dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
+        dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+        dashboard.button("r", " Recently used files", ":Telescope oldfiles <CR>"),
+        dashboard.button("t", "󰱽 Find text", ":Telescope live_grep <CR>"),
+        dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua<CR>"),
+        dashboard.button("q", "󰈆  Quit Neovim", ":qa<CR>"),
+      }
       alpha.setup(dashboard.opts)
     end,
   },
@@ -141,9 +161,16 @@ return {
     event = "BufRead", -- Loads when a file is opened
     config = function()
       require("virt-column").setup({
-        char = "│", -- Character used for the column marker
+        char = "░", -- Character used for the column marker
+        -- The unicode characters for column to insert ctrl-v u2588
+        -- **U+2588**: Full Block
+        -- **U+2591**: Light Shade
+        -- **U+2592**: Medium Shade
+        -- **U+2593**: Dark Shade
         virtcolumn = "80", -- Highlight the 80th column
       })
     end,
+    vim.keymap.set("n", "<leader>a", ":Alpha<cr>") -- Cycle forward through buffers
+
   }
 }

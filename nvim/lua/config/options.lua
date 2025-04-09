@@ -13,6 +13,7 @@ vim.opt.list = true -- show tab characters and trailing whitespace
 vim.opt.backup = false -- Disable backup files
 vim.opt.writebackup = false -- Prevent writing a backup file before overwriting
 vim.opt.swapfile = false -- Disable swap file creation.
+vim.opt.cursorline = true -- Enable cursorline highlighing
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]]) -- Yank to clipboard
 
 -- [VIM for newbs](https://github.com/cpow/neovim-for-newbs/blob/main/lua/vim-options.lua)
