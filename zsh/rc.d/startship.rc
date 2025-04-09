@@ -1,4 +1,13 @@
 #!/bin/zsh
+#
+# starship.rc - Provides the basic setup for starship
+
+CONFIG_FOLDER="${HOME}/.config/starship"
+TARGET_FOLDER="${HOME}/.local/share/dotfiles/public/starship"
+dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+
+CONFIG_FILE="${CONFIG_FOLDER}/starship.toml"
+dotfiles_file_exists $CONFIG_FILE
 
 STARSHIP="$(which starship)"
 # From the installation instructions at https://starship.rs/guide/#🚀-installation
@@ -6,7 +15,7 @@ if [[ -e "$STARSHIP" ]]; then
     # From the installation instructions at https://starship.rs/guide/#🚀-installation
     # modified to be more specific
     eval "$(${STARSHIP} init zsh)"
-    export STARSHIP_CONFIG="${XDG_CONFIG_HOME}/starship/starship.toml"
+    export STARSHIP_CONFIG="${CONFIG_FILE}"
 else
     echo "Starship is not installed, defaulting to default MacOS prompt"
 fi

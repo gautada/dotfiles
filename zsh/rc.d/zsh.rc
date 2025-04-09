@@ -1,9 +1,46 @@
 #!/bin/zsh
 
+# ************* ENVIRONMENT *******************
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME="${HOME}/.local/share"
+mkdir -p $XDG_DATA_HOME
+export XDG_RUNTIME_HOME=$HOME/.var
+
+# export SCRDIR=$XDG_CONFIG_HOME/scripts
+
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# export ZSHRC=$HOME/.zshrc
+# export ZDOTRC=$ZDOTDIR/rc
+# export ZENV=$HOME/.zenv
+# export ZDOTENV=$ZDOTDIR/env
+# export ZPROFILE=$HOME/.zprofile
+# export ZDOTPROFILE=$ZDOTDIR/profile
+# export ZLOGIN=$HOME/.zlogin
+# export ZDOTLOGIN=$ZDOTDIR/login
+# export ZLOGOUT=$HOME/.zlogout
+# export ZDOTLOGOUT=$ZDOTDIR/logout
+
+# export HISTFILE="$HOME/.cache/history"
+# export HISTSIZE=10000000
+# export SAVEHIST=10000000
+
+
+# Private environment variables
+
+export $(grep -v '^#' "${HOME}/.local/share/dotfiles/private/zsh/env" | xargs)
+
 # Resources for managing and setup of the zsh shell.
 # source $HOME/.config/zsh/env
 # source $ZDOTDIR/aliases
 # source $ZDOTDIR/prompt
+
+
+# **************** SESSIONS *******************
+# Set the location for Zsh session files
+export ZSH_SESSIONDIR=~/.cache/zsh/sessions
+# Create the session directory if it doesn't exist
+
 
 # Reload zsh shell
 alias reload="source ~/.zshrc"
@@ -11,10 +48,10 @@ alias reload="source ~/.zshrc"
 zsh_environment_refresh() {
  current_dir="$(pwd)"
  echo "[INFO] Current directory: ${current_dir}"
- cd "${HOME}/.config/repo/public"
+ cd "${HOME}/.local/share/dotfiles/public"
  git pull
  echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
- cd "${HOME}/.config/repo/private"
+ cd "${HOME}/.local/share/dotfiles/private"
  git pull
  echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
  reload
@@ -23,3 +60,45 @@ zsh_environment_refresh() {
 
 alias refresh="zsh_environment_refresh"
 
+# *********COMPLETIONS **************
+# Set the new .zcomp directory
+ZSH_COMPDIR=~/.cache/zsh/comp
+# Make sure the parent directory is there
+mkdir -p "$ZSH_COMPDIR"
+# Ensure the completion system is loaded
+# **Note**: `autoload` is a zsh command
+autoload -Uz compinit
+# Set the new .zcompdump location
+ZCOMPDUMP="${ZSH_COMPDIR}/dump"
+# Initialize completion with the new location
+compinit -d "$ZCOMPDUMP"
+# Precompile for faster startup
+zcompile "$ZCOMPDUMP"
+# Enable kubectl completion if not already enabled
+
+
+
+# ********* HISTORY FILE **************
+# Set the location for zsh cache
+export ZSH_CACHE=~/.cache/zsh
+# Create the directory if it doesn't exist
+/bin/mkdir -p "$ZSH_CACHE"
+
+# History Configuration
+export HISTFILE="${ZSH_CACHE}/history"  # Set the new history file path
+export HISTSIZE=10000                   # Number of lines kept in memory
+export SAVEHIST=10000                   # Number of lines saved to file
+setopt EXTENDED_HISTORY                 # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY               # Write to the history file immediately, not when the shell exits.
+setopt APPEND_HISTORY                   # Append rather than overwrite history
+setopt SHARE_HISTORY                    # Share history across sessions
+setopt BANG_HIST                        # Treat the '!' character specially during expansion.
+setopt HIST_EXPIRE_DUPS_FIRST           # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS                 # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS             # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS                # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE                # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS                # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS               # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY                      # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                        # Beep when accessing nonexistent history

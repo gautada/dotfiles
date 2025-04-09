@@ -1,61 +1,8 @@
 #!/bin/zsh
-
-# source ~/.config/zsh/functions
+#
+# aliases.rc - Generic aliases that don't need their own .rc
 
 # Shell Aliases
 alias ls="ls -laH --color"
 
-# # [p...] Podman **NOTE**: Clients
-# alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
-# alias pc="podman rmi --force --all"
-# alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 
-# [c...] Container (podman) Client 
-# alias dcb="docker compose build $(pwd | awk -F'/' '{print $NFç}')"
-alias ccb="container-compose build --no-cache $(pwd | awk -F'/' '{print $NF}') $@"
-alias ccr="container-compose run --service-ports  $(pwd | awk -F'/' '{print $NF}') '$@'"
-# alias ccv=""
-# alias ccb="container-compose-build $@"
-# alias ccr="container-compose-run $@"
-#  --service-ports '$(print-current-folder)' '$@'"
-# alias ccv="print-current-folder"
-# alias pvl="podman volume list"
-# alias pil="podman images"
-# alias pcl="podman system connection list"
-# alias pps="podman ps -a"
-# alias pci="podman rmi prune"
-# [d...] Docker **Note**: Move to Container Client
-alias d="/usr/bin/docker "                    # docker
-alias dk="/usr/bin/docker stop --force ${PWD##*/}; /usr/local/docker rm --force ${PWD##*/}"
-# alias db="/usr/bin/docker build --tag ${PWD##*/}:build . "
-alias db='docker-build'
-alias dt="/usr/bin/docker tag "
-alias dd="/usr/bin/docker tag ${PWD##*/}:build $DOCKER_REGISTRY/${PWD##*/}:latest ; /usr/bin/docker push $DOCKER_REGISTRY/${PWD##*/}:latest "
-alias dv="echo 'Docker Host: $DOCKER_HOST' ; echo 'Docker Registry: $DOCKER_REGISTRY'"
-alias da="/usr/bin/docker "
-alias drmi="/User/mada/Bin/docker-rm-images"
-
-
-# Python Environment Aliases
-alias ~="source ~/.cache/local/bin/activate" # Activate the default venv
-alias ~~="deactivate"                       # Deactivate the current venv
-
-
-# GIT Environment Aliases
-alias gs='git status'
-alias ga='git add'
-alias gp='git push'
-alias gpo='git push origin'
-alias gtd='git tag --delete'
-alias gtdr='git tag --delete origin'
-alias gr='git branch -r'
-alias gplo='git pull origin'
-alias gb='git branch '
-alias gc='git commit -am'
-alias gd='git diff'
-alias gco='git checkout '
-alias gl='git log'
-alias gr='git remote'
-alias grs='git remote show'
-alias glo='git log --pretty="oneline"'
-alias glol='git log --graph --oneline --decorate'

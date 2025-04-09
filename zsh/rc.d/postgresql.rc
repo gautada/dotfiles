@@ -1,0 +1,9 @@
+#!/bin/zsh
+#
+# postgresql.rc
+HISTORY_FOLDER="${HOME}/.cache/postgresql"
+if [ ! -d $HISTORY_FOLDER ] ; then
+  /bin/mkdir -p "${HISTORY_FOLDER}"
+fi
+HISTORY_FILE="${HISTORY_FOLDER}/history"
+export PSQL_HISTORY="${HISTORY_FILE}"

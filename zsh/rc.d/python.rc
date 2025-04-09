@@ -7,5 +7,8 @@ python_activate() {
         source ~/.cache/local/bin/activate
     fi
 }
+
 # Python Environment Aliases
+alias ~="python_Activate" # Activate the default venv
 alias ~~="deactivate"                       # Deactivate the current venv
+

@@ -14,7 +14,7 @@
  if tput setaf 1 >/dev/null 2>&1; then
   export UNK=$(tput setaf 4)    # Blue
   export INF=$(tput setaf 2)  # Green
-  export WRN=$(tput setaf 3)    # Yellow
+  export WRN="$(tput setaf 3)"    # Yellow
   export ERR=$(tput setaf 1)   # Red
   export MSG=$(tput setaf 7)   # White color
   export RST=$(tput sgr0)      # Reset
@@ -48,8 +48,8 @@ zshlog() {
       LVL="UNK"
       ;;
   esac
- MSG=$2
- echo -e "${CLR}[${LVL}]${MSG}${RST}"
+ 
+ echo -e "${CLR}[${LVL}]${MSG} $2${RST}"
 }
 
 dotfiles_does_not_exist() {
@@ -77,6 +77,13 @@ dotfiles_file_exists() {
     # exit 402
   fi
 }
+
+CONFIG_FOLDER="${HOME}/.config/zsh"
+TARGET_FOLDER="${HOME}/.local/share/dotfiles/public/zsh"
+dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+
+RC_FILE="${CONFIG_FOLDER}/rc"
+dotfiles_file_exists $RC_FILE
 
 # Load all of the drop-ins
 for rcfile in ~/.config/zsh/rc.d/*.rc; do
