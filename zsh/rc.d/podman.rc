@@ -1,5 +1,13 @@
 #!/bin/zsh
+#
+# podman.rc - All the configuration for Docker and podman
 
+export DOCKER_HOST="tcp://podman.gautier.org:2375"
+# [p...] Podman **NOTE**: Clients
+alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
+alias pc="podman rmi --force --all"
+alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 # This was pulled from the functions and alias files.
 podman-build() {
  echo "Image: ${1}"
@@ -54,8 +62,4 @@ podman-exec() {
 }
 
 
-# [p...] Podman **NOTE**: Clients
-alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
-alias pc="podman rmi --force --all"
-alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
-alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
+
