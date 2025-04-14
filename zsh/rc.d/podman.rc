@@ -44,9 +44,10 @@ podman-run() {
  --volume Data:/mnt/volumes/container \
  --volume Configmaps:/mnt/volumes/configmaps \
  --volume Secrets:/mnt/volumes/secrets \
- '${1}:dev' /bin/sh"
+ '${1}:dev'"
  echo "${_CMD}"
  eval "${_CMD}"
+ echo "Running container ${1}"
  unset _CMD
 }
 # --volume Secrets:/mnt/volumes/secrets \

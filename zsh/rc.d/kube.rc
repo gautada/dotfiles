@@ -9,8 +9,9 @@ dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
 
 export KUBECONFIG="${HOME}/.config/kube/config"
 dotfiles_file_exists $KUVWCONFIG
-
-
+CACHE_FOLDER="${HOME}/.cache/kube"
+mkdir -p $CACHE_FOLDER
+# export KUBECONFIG_CACHE_DIR="${CACHE_FOLDER}"
 
 universal-kubectl() {
  if [ -f "/usr/bin/kubectl" ] ; then

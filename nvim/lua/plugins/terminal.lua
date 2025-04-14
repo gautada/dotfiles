@@ -9,8 +9,8 @@
         -- shell = '/bin/zsh -l -c ". ~/.zshrc"',
     	  float_opts = {
           border = 'single',
-          width = 140,
-          height = 40,
+          width = 120,
+          height = 35,
         },
         -- Open with a specific command
         open_mapping = [[<C-t>]],
