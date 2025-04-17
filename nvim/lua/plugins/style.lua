@@ -29,9 +29,10 @@ return {
     config = function()
       local alpha = require("alpha")
       -- local dashboard = require("alpha.themes.startify")
+      -- [[                                                   ]],
+      -- [[                                                   ]],
       local dashboard = require("alpha.themes.dashboard")
       dashboard.section.header.val = {
-      [[                                                   ]],
       [[                                              ___  ]],
       [[                                           ,o88888 ]],
       [[                                        ,o8888888' ]],
@@ -53,7 +54,6 @@ return {
       [[  . . . ...."'                                     ]],
       [[  .. . ."'                                         ]],
       [[ .                                                 ]],
-      [[                                                   ]],
       }
       dashboard.section.buttons.val = {
         dashboard.button("o", "  Open File", ":Neotree filesystem reveal float <CR>"),
