@@ -2,6 +2,12 @@
 #
 # kube.rc - All the kubectl resources needed.
 
+ZF_APP="/opt/homebrew/bin/kubectl"
+
+if [ ! -e "${FZF_APP}" ] ; then
+ /opt/homebrew/bin/brew install lubectl
+fi
+
 dotfiles_does_not_exist "${HOME}/.kube"
 CONFIG_FOLDER="${HOME}/.config/kube"
 TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/kube"

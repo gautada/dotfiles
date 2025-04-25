@@ -7,8 +7,17 @@
 # - Add a header to the fzf session via `--header`
 # - Add a prompt to the fzf query field via `--prompt`
 
-# Set up fzf key bindings and fuzzy completion
-source <(/opt/homebrew/bin/fzf --zsh)
+FZF_APP="/opt/homebrew/bin/fzf"
+
+if [ ! -e "${FZF_APP}" ] ; then
+ /opt/homebrew/bin/brew install fzf
+fi
+
+CONFIG_FZF="${HOME}/.config/fzf"
+TARGET_FZF="${HOME}/.local/share/dotfiles/public/fzf"
+dotfiles_config_folder $CONFIG_FZF $TARGET_FZF
+
+source <(/opt/homebrew/bin/fzf --zsh) 
 
 # Overload find with fzf and preview
 alias find='/opt/homebrew/bin/fzf --preview "/opt/homebrew/bin/bat --style=numbers --color=always {}"'

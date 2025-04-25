@@ -1,4 +1,50 @@
 #!/bin/zsh
 
+NVIM_APP="/opt/homebrew/bin/nvim"
+if [ ! -e "${NVIM_APP}" ] ; then
+ /opt/homebrew/bin/brew install nvim
+fi
+
 alias vi="/opt/homebrew/bin/nvim"
 alias vim="/opt/homebrew/bin/nvim"
+
+CONFIG_NVIM="${HOME}/.config/nvim"
+TARGET_NVIM="${HOME}/.local/share/dotfiles/public/nvim"
+dotfiles_config_folder $CONFIG_NVIM $TARGET_NVIM
+
+# Homebrew Dependencies
+nvim_is_brew_package_installed() {
+  local package=$1
+  if brew list --formula | grep -q "^${package}$" || \
+     brew list --cask | grep -q "^${package}$"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+nvim_install_dependency() {
+  local PACKAGE="${1}"
+  if ! nvim_is_brew_package_installed "${PACKAGE}"; then
+    /opt/homebrew/bin/brew install "${PACKAGE}"
+  fi
+}
+
+# LSPs
+nvim_install_dependency "bash-language-server"
+nvim_install_dependency "dockerfile-language-server"
+nvim_install_dependency "lua-language-server"
+
+# Linters
+nvim_install_dependency "hadolint"
+nvim_install_dependency "yamllint"
+
+# Other
+nvim_install_dependency "luarocks"
+nvim_install_dependency "pyright"
+nvim_install_dependency "ruff"
+nvim_install_dependency "shellcheck"
+nvim_install_dependency "shellharden"
+nvim_install_dependency "stylua"
+nvim_install_dependency "yamlfix"
+nvim_install_dependency "yamlfmt"

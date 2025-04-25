@@ -2,6 +2,18 @@
 #
 # starship.rc - Provides the basic setup for starship
 
+STARSHIP_APP="/opt/homebrew/bin/starship"
+if [ ! -e "${STARSHIP_APP}" ] ; then
+ /opt/homebrew/bin/brew install starship
+fi
+
+# Make sure the proper fonts are installed
+# brew tap homebrew/cask-fonts -- not used anymore
+STARSHIP_FONT="${HOME}/Library/Fonts/FiraCodeNerdFontMono-Regular.ttf"
+if [ ! -e "${STARSHIP_FONT}" ] ; then
+ /opt/homebrew/bin/brew install --cask font-fira-code-nerd-font
+fi
+
 CONFIG_FOLDER="${HOME}/.config/starship"
 TARGET_FOLDER="${HOME}/.local/share/dotfiles/public/starship"
 dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER

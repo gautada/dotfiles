@@ -8,6 +8,7 @@ alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
 alias pc="podman rmi --force --all"
 alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
+
 # This was pulled from the functions and alias files.
 podman-build() {
  echo "Image: ${1}"

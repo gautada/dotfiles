@@ -1,15 +1,14 @@
 #!/bin/zsh
 
 # ************* ENVIRONMENT *******************
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME="${HOME}/.local/share"
-mkdir -p $XDG_DATA_HOME
-export XDG_RUNTIME_HOME=$HOME/.var
-
+# export XDG_CONFIG_HOME=$HOME/.config
+# export XDG_CACHE_HOME=$HOME/.cache
+# export XDG_DATA_HOME="${HOME}/.local/share"
+# mkdir -p $XDG_DATA_HOME
+# export XDG_RUNTIME_HOME=$HOME/.var
 # export SCRDIR=$XDG_CONFIG_HOME/scripts
-
-export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# 
+# export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Load private environment variables
 PRIVATE_ENV="${HOME}/.local/share/dotfiles/private/zsh/env"
@@ -29,7 +28,7 @@ export ZSH_SESSIONDIR=~/.cache/zsh/sessions
 
 
 # Reload zsh shell
-alias reload="source ~/.zshrc"
+alias reload="source ~/.config/zsh/rc"
 
 zsh_environment_refresh() {
  current_dir="$(pwd)"
