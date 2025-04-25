@@ -2,10 +2,10 @@
 #
 # kube.rc - All the kubectl resources needed.
 
-ZF_APP="/opt/homebrew/bin/kubectl"
+KUBECTL_APP="/opt/homebrew/bin/kubernetes-cli"
 
-if [ ! -e "${FZF_APP}" ] ; then
- /opt/homebrew/bin/brew install lubectl
+if [ ! -e "${KUBECTL_APP}" ] ; then
+ /opt/homebrew/bin/brew install kubernetes-cli
 fi
 
 dotfiles_does_not_exist "${HOME}/.kube"
