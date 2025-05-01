@@ -8,16 +8,28 @@ if [ ! -e "${KUBECTL_APP}" ] ; then
  /opt/homebrew/bin/brew install kubernetes-cli
 fi
 
-dotfiles_does_not_exist "${HOME}/.kube"
+DEFAULT_FOLDER="${HOME}/.kube"
 CONFIG_FOLDER="${HOME}/.config/kube"
+if [ ! -e $DEFAULT_FOLDER ] ; then
+ /bin/ln -fsv $CONFIG_FOLDER $DEFAULT_FOLDER
+fi
+if [ ! -L $DEFAULT_FOLDER ] ; then
+ zshlog "Error" "Setup Error: The path ${1} must be a symlink."
+fi
+ACTUAL=$(readlink "${DEFAULT_FOLDER}")
+if [ "${ACTUAL}" != "${CONFIG_FOLDER}" ] ; then
+  MSG="The path '${DEFAULT_FOLDER}' is a symlink and points"
+  MSG="${MSG} to '${ACTUAL}' not '${CONFIG_FOLDER}'."
+  zshlog "Error" "${MSG}"
+fi
 TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/kube"
 dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
-
 export KUBECONFIG="${HOME}/.config/kube/config"
-dotfiles_file_exists $KUVWCONFIG
-CACHE_FOLDER="${HOME}/.cache/kube"
-mkdir -p $CACHE_FOLDER
-# export KUBECONFIG_CACHE_DIR="${CACHE_FOLDER}"
+dotfiles_file_exists $KUBECONFIG
+
+DEFAULT_CACHE_FOLDER="${DEFAULT_FOLDER}/cache"
+TARGET_CACHE_FOLDER="${HOME}/.cache/kube"
+dotfiles_config_folder $DEFAULT_CACHE_FOLDER $TARGET_CACHE_FOLDER
 
 universal-kubectl() {
  if [ -f "/usr/bin/kubectl" ] ; then
