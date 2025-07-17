@@ -2,35 +2,37 @@
 #
 # podman.rc - All the configuration for Docker and podman
 
-export DOCKER_HOST="tcp://podman.gautier.org:2375"
+# export DOCKER_HOST="tcp://podman.gautier.org:2375"
 # [p...] Podman **NOTE**: Clients
-alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
-alias pc="podman rmi --force --all"
-alias pr="podman-run $(pwd | awk -F'/' '{print $NF}')"
-alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
+# alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
+# alias pc="podman rmi --force --all"
+alias pmr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+# alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 
 # This was pulled from the functions and alias files.
-podman-build() {
- echo "Image: ${1}"
- echo "$(pwd | awk -F'/' '{print $NF}')"
- # Generic podman build use the `.arg` file to set params
- ARG_FILE=".arg"
- # file does not exists
- if [ ! -f "$ARG_FILE" ]; then
-   touch "$ARG_FILE"
- fi
- echo "----------------------------------------"
- _CMD="podman build --build-arg-file '$ARG_FILE' \
-  --file Containerfile \
-  --tag '${1}:dev' \
-  ."
- echo "${_CMD}"
- eval "${_CMD}"
- unset _CMD
-}
+# podman-build() {
+#  echo "Image: ${1}"
+#  echo "$(pwd | awk -F'/' '{print $NF}')"
+#  # Generic podman build use the `.arg` file to set params
+#  ARG_FILE=".arg"
+#  # file does not exists
+#  if [ ! -f "$ARG_FILE" ]; then
+#    touch "$ARG_FILE"
+#  fi
+#  echo "----------------------------------------"
+#  _CMD="podman build --build-arg-file '$ARG_FILE' \
+#   --file Containerfile \
+#   --tag '${1}:dev' \
+#   ."
+#  echo "${_CMD}"
+#  eval "${_CMD}"
+#  unset _CMD
+# }
 
 podman-run() {
  # Generic podman build use the `.arg` file to set params
+ echo "${1}"
+ # echo "-------------------------"
  ENV_FILE=".env"
  # file does not exists
  if [ ! -f "$ENV_FILE" ]; then
@@ -42,26 +44,30 @@ podman-run() {
  --name '${1}' \
  --publish 8080:8080 \
  --rm \
- --volume Data:/mnt/volumes/container \
- --volume Configmaps:/mnt/volumes/configmaps \
- --volume Secrets:/mnt/volumes/secrets \
- '${1}:dev'"
+ "
+ _PODMAN_VOLUMES="${HOME}/.cache/podman/volumes"
+ for subdir in "${_PODMAN_VOLUMES}"/*(/) ; do
+  _volume="${subdir##*/}"
+  _CMD+="--volume ${_volume}:/mnt/volumes/${_volume:l} "
+ done
+ _CMD+="'${1}:dev'"
  echo "${_CMD}"
- eval "${_CMD}"
- echo "Running container ${1}"
+ # eval "${_CMD}"
+ # echo "Running container ${1}"
  unset _CMD
 }
+
 # --volume Secrets:/mnt/volumes/secrets \
 
-podman-exec() {
- _CMD="podman exec \
- --interactive \
- --tty \
- '${1}' /bin/sh"
- echo "${_CMD}"
- eval "${_CMD}"
- unset _CMD
-}
+# podman-exec() {
+#  _CMD="podman exec \
+#  --interactive \
+#  --tty \
+#  '${1}' /bin/sh"
+#  echo "${_CMD}"
+#  eval "${_CMD}"
+#  unset _CMD
+# }
 
 
 
