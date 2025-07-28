@@ -48,28 +48,43 @@
 --   - `brew install yamlfmt`
 return {
   "nvimtools/none-ls.nvim",
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local null_ls = require("null-ls")
+
+    local diagnostics = null_ls.builtins.diagnostics
+    local formatting = null_ls.builtins.formatting
+
+    local function has_exec(bin)
+      return vim.fn.executable(bin) == 1
+    end
+
     null_ls.setup({
       sources = {
-        null_ls.builtins.diagnostics.hadolint,
-        null_ls.builtins.diagnostics.luacheck,
-        null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.ruff,
-        null_ls.builtins.diagnostics.shellharden,
-        null_ls.builtins.diagnostics.yamllint,
+        -- Diagnostics (only add if executable is present)
+        has_exec("hadolint")      and diagnostics.hadolint      or nil,
+        -- has_exec("luacheck")      and diagnostics.luacheck      or nil,
+        has_exec("markdownlint")  and diagnostics.markdownlint  or nil,
+        -- has_exec("ruff")          and diagnostics.ruff          or nil,
+        -- has_exec("shellharden")   and diagnostics.shellharden   or nil,
+        has_exec("yamllint")      and diagnostics.yamllint      or nil,
 
-        null_ls.builtins.formatting.markdownlint,
-        null_ls.builtins.formatting.shellharden,
-        null_ls.builtins.formatting.shfmt.with({
-          extra_args = { "-i", "2" }, -- Set indentation to 2 spaces
-        }),
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.yamlfmt,
-        -- null_ls.builtins.formatting.yamlfix,
+        -- Formatting
+        has_exec("markdownlint")  and formatting.markdownlint   or nil,
+        has_exec("shellharden")   and formatting.shellharden    or nil,
+        has_exec("shfmt")         and formatting.shfmt.with({
+          extra_args = { "-i", "2" },
+        }) or nil,
+        has_exec("stylua")        and formatting.stylua         or nil,
+        has_exec("yamlfmt")       and formatting.yamlfmt        or nil,
+        -- has_exec("yamlfix")    and formatting.yamlfix        or nil, -- optional
       },
     })
 
-    vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+    -- Keymap to format using LSP
+    vim.keymap.set("n", "<leader>gf", function()
+      vim.lsp.buf.format({ async = true })
+    end, { desc = "Format with LSP" })
   end,
 }
+
