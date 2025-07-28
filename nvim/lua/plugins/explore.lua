@@ -12,8 +12,11 @@ return {
 	config = function()
 		require("neo-tree").setup({
 			filesystem = {
-				follow_current_file = true, -- Keep Neo-tree in sync with the open file
-				hijack_netrw = true, -- Replace netrw with Neo-tree
+				-- follow_current_file = true, -- Keep Neo-tree in sync with the open file
+        follow_current_file = {
+          enabled = true,
+        },
+        hijack_netrw = true, -- Replace netrw with Neo-tree
 				use_libuv_file_watcher = true, -- Auto-update when files change
 				bind_to_cwd = false, -- Allow independent navigation
 				cwd_target = {
