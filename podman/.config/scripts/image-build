@@ -1,0 +1,22 @@
+#!/bin/sh
+
+_BASE="$(/usr/bin/basename '$(git config --get remote.origin.url)')"
+_NAME="$_BASE"
+if [[ $_BASE == *-container.git* ]] ; then
+ _NAME=${_BASE%-container.git}
+fi
+echo "********************************************************"
+echo $_NAME
+echo
+
+_ARGS=""
+if [ -f "args.conf" ] ; then
+ _ARGS="--build-arg-file ./args.conf"
+fi
+if [ -f ".args.conf" ] ; then
+ _ARGS="$_ARGS --build-arg-file ./.args.conf"
+fi
+
+BUILD="podman build $_ARGS  --file Containerfile --no-cache --tag '$_NAME:build' ./"
+echo "$BUILD"
+/bin/sh -c "$BUILD"
