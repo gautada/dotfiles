@@ -1,2 +1,0 @@
-#!/bin/zsh
-docker compose build $(pwd | awk -F'/' '{print $NF}') $@

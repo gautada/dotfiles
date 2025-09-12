@@ -1,3 +1,4 @@
+#!/bin/zsh
 # ~/.zshrc - Standard Zsh Configuration File
 
 # This `.zshrc` file uses a **drop-in directory pattern** to make maintenance
@@ -10,15 +11,18 @@
 # - **Automated** - A simple loop ensures all files are included.
 # - **Simple** – You can enable/disable features by adding/removing files.
 
- # Define colors using tput (if supported)
- if tput setaf 1 >/dev/null 2>&1; then
+# alias sh="/bin/zsh"
+# alias _sh="/bin/sh"
+
+# Define colors using tput (if supported)
+if tput setaf 1 >/dev/null 2>&1; then
   export UNK=$(tput setaf 4)    # Blue
   export INF=$(tput setaf 2)  # Green
-  export WRN=$(tput setaf 3)    # Yellow
+  export WRN="$(tput setaf 3)"    # Yellow
   export ERR=$(tput setaf 1)   # Red
   export MSG=$(tput setaf 7)   # White color
   export RST=$(tput sgr0)      # Reset
- else
+else
   # Fallback to basic color codes if tput isn't available
   export UNK='\033[1;34m'       # Blue
   export INF='\033[1;32m'       # Green
@@ -26,7 +30,7 @@
   export ERR='\033[1;31m'      # Red
   export MSG='\033[1;37m'  # White color
   export RST='\033[0m'         # Reset
- fi
+fi
 
 
 zshlog() {
@@ -48,8 +52,8 @@ zshlog() {
       LVL="UNK"
       ;;
   esac
- MSG=$2
- echo -e "${CLR}[${LVL}]${MSG}${RST}"
+ 
+ echo -e "${CLR}[${LVL}]${MSG} ${2}${RST}"
 }
 
 dotfiles_does_not_exist() {
@@ -66,6 +70,7 @@ dotfiles_config_folder() {
     [ "$(/usr/bin/readlink ${CONFIG_FOLDER})" != "${TARGET_FOLDER}" ]; then
     zshlog "Error" \
            "Setup Error: ${CONFIG_FOLDER} is not linked to ${TARGET_FOLDER}" 
+    /bin/ln -fsv $TARGET_FOLDER $CONFIG_FOLDER
     # exit 401
   fi
 }
@@ -77,6 +82,25 @@ dotfiles_file_exists() {
     # exit 402
   fi
 }
+
+# ************* XDG ENVIRONMENT *******************
+export XDG_CONFIG_HOME="${HOME}/.config"
+mkdir -p "${XDG_CONFIG_HOME}"
+export XDG_CACHE_HOME="${HOME}/.cache"
+mkdir -p "${XDG_CACHE_HOME}"
+export XDG_DATA_HOME="${HOME}/.local/share"
+mkdir -p "${XDG_DATA_HOME}"
+export XDG_RUNTIME_HOME="${HOME}/.var"
+mkdir -p "${XDG_RUNTIME_HOME}"
+export XDG_SCRIPTS_HOME="${HOME}/.scripts"
+mkdir -p "${XDG_SCRIPTS_HOME}"
+
+CONFIG_ZSH="${XDG_CONFIG_HOME}/zsh"
+TARGET_ZSH="${XDG_DATA_HOME}/dotfiles/public/zsh"
+dotfiles_config_folder "${CONFIG_ZSH}" "${TARGET_ZSH}"
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+RC_FILE="${CONFIG_FOLDER}/rc"
+dotfiles_file_exists $RC_FILE
 
 # Load all of the drop-ins
 for rcfile in ~/.config/zsh/rc.d/*.rc; do

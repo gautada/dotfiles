@@ -2,6 +2,25 @@
 #
 # podman.rc - All the configuration for Docker and podman
 
+# Check that podman application is installed if not go ahead and install the
+# application
+
+install_package() {
+ set -xue
+ local PACKAGE=$1
+ local COMMAND="$(which ${PACKAGE})"
+ local FOUND=$?
+ if [ 0 -ne $FOUND ] ; then
+  if [ "Darwin" == "$(/usr/bin/uname)" ] ; then
+   /opt/homebrew/bin/brew install podman
+  else
+    echo "Unable to install package(${PACKAGE}"
+  fi
+ echo "Installed package(${PACKAGE}) check ${COMMAND})
+ set +xue
+}
+
+
 # export DOCKER_HOST="tcp://podman.gautier.org:2375"
 # [p...] Podman **NOTE**: Clients
 # alias pb="podman-build $(pwd | awk -F'/' '{print $NF}')"
