@@ -26,7 +26,8 @@ export PODMAN_BUILD_TAG="dev"
 # export DOCKER_HOST="tcp://podman.gautier.org:2375"
 # [p...] Podman **NOTE**: Clients
 alias pmb="podman-build ${@}" #  $(pwd | awk -F'/' '{print $NF}')"
-# alias pc="podman rmi --force --all"
+alias pmc="podman rmi --force --all"
+alias pmi="podman images"
 # alias pmr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 # alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 
