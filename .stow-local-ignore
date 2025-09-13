@@ -1,0 +1,15 @@
+# Ignore VCS + repo metadata anywhere
+(^|/)\.git($|/)
+(^|/)\.github($|/)
+(^|/)\.gitignore$
+(^|/)\.gitattributes$
+(^|/)\.gitmodules$
+
+# Common top-level docs
+(^|/)README(\.md|\.txt)?$
+(^|/)LICENSE(\.md|\.txt)?$
+(^|/)CHANGELOG(\.md|\.txt)?$
+
+# Misc
+(^|/)\.DS_Store$
+

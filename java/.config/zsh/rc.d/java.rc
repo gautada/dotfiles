@@ -32,7 +32,11 @@ fi
 TARGET="${JAVA_HOME}/libexec/openjdk.jdk"
 # SYMLINK="/Library/Java/JavaVirtualMachines/openjdk-${JAVA_VERSION}.jdk"
 SYMLINK="/Library/Java/JavaVirtualMachines/openjdk-23.jdk"
-verify_symlink $TARGET $SYMLINK
+
+# NOTE: REMOVED BECASUE JAVA IS NOT 100% REQUIRED...   add back if needed
+# verify_symlink $TARGET $SYMLINK
+
+
 if [ $? -ne 0 ] ; then
  zshlog "Error" "Create symlink: sudo ln -fnsv ${TARGET} ${SYMLINK}"
 fi

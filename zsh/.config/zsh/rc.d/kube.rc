@@ -27,9 +27,9 @@ dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
 export KUBECONFIG="${HOME}/.config/kube/config"
 dotfiles_file_exists $KUBECONFIG
 
-DEFAULT_CACHE_FOLDER="${DEFAULT_FOLDER}/cache"
-TARGET_CACHE_FOLDER="${HOME}/.cache/kube"
-dotfiles_config_folder $DEFAULT_CACHE_FOLDER $TARGET_CACHE_FOLDER
+# DEFAULT_CACHE_FOLDER="${DEFAULT_FOLDER}/cache"
+# TARGET_CACHE_FOLDER="${HOME}/.cache/kube"
+# dotfiles_config_folder $DEFAULT_CACHE_FOLDER $TARGET_CACHE_FOLDER
 
 universal-kubectl() {
  if [ -f "/usr/bin/kubectl" ] ; then

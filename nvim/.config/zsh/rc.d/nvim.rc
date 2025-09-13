@@ -9,7 +9,7 @@ alias vi="/opt/homebrew/bin/nvim"
 alias vim="/opt/homebrew/bin/nvim"
 
 CONFIG_NVIM="${HOME}/.config/nvim"
-TARGET_NVIM="${HOME}/.local/share/dotfiles/public/nvim"
+TARGET_NVIM="../.local/share/dotfiles/public/nvim/.config/nvim"
 dotfiles_config_folder $CONFIG_NVIM $TARGET_NVIM
 
 # Homebrew Dependencies

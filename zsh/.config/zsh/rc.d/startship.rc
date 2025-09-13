@@ -15,8 +15,8 @@ if [ ! -e "${STARSHIP_FONT}" ] ; then
 fi
 
 CONFIG_FOLDER="${HOME}/.config/starship"
-TARGET_FOLDER="${HOME}/.local/share/dotfiles/public/starship"
-dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+# TARGET_FOLDER="${HOME}/.local/share/dotfiles/public/starship"
+# dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
 
 CONFIG_FILE="${CONFIG_FOLDER}/starship.toml"
 dotfiles_file_exists $CONFIG_FILE

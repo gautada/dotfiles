@@ -1,5 +1,6 @@
-nvim/lazy-lock.json
+# nvim/lazy-lock.json
 zsh/.zcompdump
 .DS_Store
 *~
-.zsh_history
+.zsh_historyi
+nvim/.config/nvim/lazy-lock.json

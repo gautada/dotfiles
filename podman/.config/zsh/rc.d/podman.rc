@@ -1,1 +1,84 @@
-../../../.local/share/dotfiles/public/zsh/.config/zsh/rc.d/podman.rc
+#!/bin/zsh
+#
+# podman.rc - All the configuration for Docker and podman
+export PODMAN_REGISTRY="docker.io/gautada"
+export PODMAN_BUILD_TAG="dev"
+
+# Check that podman application is installed if not go ahead and install the
+# application
+
+# install_package() {
+#  set -xue
+#  local PACKAGE="${1}"
+#  local COMMAND="$(which ${PACKAGE})"
+#  local FOUND="${?}"
+#  if [ 0 -ne $FOUND ] ; then
+#   if [ "Darwin" == "$(/usr/bin/uname)" ] ; then
+#    /opt/homebrew/bin/brew install podman
+#   else
+#     echo "Unable to install package(${PACKAGE}"
+#   fi
+#  echo "Installed package(${PACKAGE}) check ${COMMAND})
+#  set +xue
+# }
+
+
+# export DOCKER_HOST="tcp://podman.gautier.org:2375"
+# [p...] Podman **NOTE**: Clients
+alias pmb="podman-build ${@}" #  $(pwd | awk -F'/' '{print $NF}')"
+# alias pc="podman rmi --force --all"
+# alias pmr="podman-run $(pwd | awk -F'/' '{print $NF}')"
+# alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
+
+# This was pulled from the functions and alias files.
+podman-build() {
+ local image="$(pwd | awk -F'/' '{print $NF}')"
+ # podman build use the `.args` file to set params
+ local argfile=".args"
+ touch "${argfile}"
+ echo "----------------------------------------"
+ local _cmd="podman build --build-arg-file ${argfile} --file Containerfile --tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} ${@} ."
+ echo "${_cmd}"
+ eval "${_cmd}"
+}
+
+# podman-run() {
+#  # Generic podman build use the `.arg` file to set params
+#  echo "${1}"
+#  # echo "-------------------------"
+#  ENV_FILE=".env"
+#  # file does not exists
+#  if [ ! -f "$ENV_FILE" ]; then
+#     touch "$ENV_FILE"
+#  fi
+#  _CMD="podman run \
+#  --env-file '${ENV_FILE}' \
+#  --detach \
+#  --name '${1}' \
+#  --publish 8080:8080 \
+#  --rm \
+#  "
+#  _PODMAN_VOLUMES="${HOME}/.cache/podman/volumes"
+#  for subdir in "${_PODMAN_VOLUMES}"/*(/) ; do
+#   _volume="${subdir##*/}"
+#   _CMD+="--volume ${_volume}:/mnt/volumes/${_volume:l} "
+#  done
+#  _CMD+="'${1}:dev'"
+#  echo "${_CMD}"
+#  # eval "${_CMD}"
+#  # echo "Running container ${1}"
+#  unset _CMD
+# }
+
+# --volume Secrets:/mnt/volumes/secrets \
+
+# podman-exec() {
+#  _CMD="podman exec \
+#  --interactive \
+#  --tty \
+#  '${1}' /bin/sh"
+#  echo "${_CMD}"
+#  eval "${_CMD}"
+#  unset _CMD
+# }
+
