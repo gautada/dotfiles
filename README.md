@@ -38,6 +38,15 @@ Currently using the theme
 To [setup](https://github.com/sharkdp/bat#adding-new-themes) update repository
 and `bat.rc`
 
+## podman
+
+Podman is my default OCI tool.  Currently I am not sure how to resolve the
+system connection setup.  `~/.config/containers/container.conf`
+
+```/bin/zsh
+podman system connection add --default cluster tcp://podman.gautier.org:2375
+```
+
 ## zsh
 
 This is my personal zsh configuration.  While I am sure I have pulled from

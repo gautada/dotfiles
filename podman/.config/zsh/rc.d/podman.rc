@@ -28,10 +28,12 @@ export PODMAN_BUILD_TAG="dev"
 alias pmb="podman-build ${@}" #  $(pwd | awk -F'/' '{print $NF}')"
 alias pmc="podman rmi --force --all"
 alias pmi="podman images"
+alias pmr="podman-run ${@}"
+alias pme="podman-exec ${@}"
+alias pms="podman-stop"
 # alias pmr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 # alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 
-# This was pulled from the functions and alias files.
 podman-build() {
  local image="$(pwd | awk -F'/' '{print $NF}')"
  # podman build use the `.args` file to set params
@@ -42,6 +44,40 @@ podman-build() {
  echo "${_cmd}"
  eval "${_cmd}"
 }
+
+podman-run() {
+ local image="$(pwd | awk -F'/' '{print $NF}')"
+ # podman build use the `.env` file to set params
+ local envfile=".env"
+ touch "${envfile}"
+ echo "----------------------------------------"
+ local _cmd="podman run --env-file ${envfile} --detach --name ${image} --publish 8080:8080 --rm"
+ podman volume ls -q | while IFS= read -r _volume; do
+  _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
+ done
+ _cmd+=" docker.io/gautada/${image}:dev"
+ echo "${_cmd}"
+ eval "${_cmd}"
+}
+
+podman-exec() {
+ local image="$(pwd | awk -F'/' '{print $NF}')"
+ echo "----------------------------------------"
+ local _cmd="podman exec --interactive --tty ${image} ${@}"
+ echo "${_cmd}"
+ eval "${_cmd}"
+}
+
+podman-stop() {
+ local image="$(pwd | awk -F'/' '{print $NF}')"
+ echo "----------------------------------------"
+ local _cmd="podman stop ${image}"
+ echo "${_cmd}"
+ eval "${_cmd}"
+}
+
+
+
 
 # podman-run() {
 #  # Generic podman build use the `.arg` file to set params
