@@ -7,21 +7,6 @@ free to do so.
 
 This repostory is ment to use stow.
 
-## stow
-
-```/bin/sh
-stow --verbose <PACKAGE> --target="${HOME}"
-```
-
-### Refresh
-
-This command refreshed the entire state
-
-```/bin/sh
-stow --verbose --target="${HOME}" \
---dir="${HOME}/.local/share/dotfiles/public" -R */
-```
-
 ## Folder specification
 
 [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/latest/#variables)
@@ -58,6 +43,21 @@ designed to be run from the image development folder. Should container a
 - pme = podman execute
 - pmi = podman images
 - pms = podman stop
+
+## stow
+
+```/bin/sh
+stow --verbose <PACKAGE> --target="${HOME}"
+```
+
+### Refresh
+
+This command refreshed the entire state
+
+```/bin/sh
+stow --verbose --target="${HOME}" \
+--dir="${HOME}/.local/share/dotfiles/public" -R */
+```
 
 ## zsh
 
