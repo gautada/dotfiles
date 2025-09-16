@@ -47,6 +47,18 @@ system connection setup.  `~/.config/containers/container.conf`
 podman system connection add --default cluster tcp://podman.gautier.org:2375
 ```
 
+### Functions
+
+Defined functions for podman. Alias prefix `pm` = PodMan. These functions are
+designed to be run from the image development folder. Should container a
+`Containerfile`.
+
+- pmb = podman build
+- pmr = podman run (detached)
+- pme = podman execute
+- pmi = podman images
+- pms = podman stop
+
 ## zsh
 
 This is my personal zsh configuration.  While I am sure I have pulled from
