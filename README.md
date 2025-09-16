@@ -42,6 +42,7 @@ designed to be run from the image development folder. Should container a
 - pmr = podman run (detached)
 - pme = podman execute
 - pmi = podman images
+- pmc = podman clean: remove images
 - pms = podman stop
 
 ## stow
