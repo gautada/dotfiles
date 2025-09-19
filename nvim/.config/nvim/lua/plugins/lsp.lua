@@ -57,56 +57,138 @@ return {
       ensure_installed = { "bashls", "dockerls", "lua_ls", "pyright", "ruff", "yamlls" },
     },
   },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   lazy = false,
+  --   config = function()
+  --     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  --
+  --     local lspconfig = require("lspconfig")
+  --     -- old: tsserver to ts_ls.setup
+  --     -- remove: solargraph
+  --     -- install and configure: html??, markdownlint
+  --     -- python: **ruff
+  --     lspconfig.bashls.setup({
+  --       capabilities = capabilities,
+  --       filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
+  --     })
+  --
+  --     lspconfig.dockerls.setup({
+  --       capabilities = capabilities,
+  --       filetypes = { "dockerfile", "Containerfile", "Dockerfile" },
+  --     })
+  --
+  --     lspconfig.lua_ls.setup({
+  --       capabilities = capabilities,
+  --     })
+  --     lspconfig.pyright.setup({
+  --       capabilities = capabilities,
+  --     })
+  --     lspconfig.yamlls.setup({
+  --       capabilities = capabilities,
+  --       settings = {
+  --         yaml = {
+  --           -- schemas = {
+  --           -- 	kubernetes = "/*.yaml",
+  --           -- 	["https://json.schemastore.org/github-action.json"] = "/.github/workflows/*",
+  --           -- },
+  --           validate = true,
+  --           format = { enable = true },
+  --           hover = true,
+  --         },
+  --       },
+  --     })
+  --     vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+  --     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
+  --     vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+  --     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+  --     vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
+  --     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
+  --     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
+  --     -- vim.diagnostic.config({virtual_text = { current_line = true }})
+  --     vim.diagnostic.config({ virtual_lines = { current_line = true } })
+  --   end,
+  -- },
   {
-    "neovim/nvim-lspconfig",
-    lazy = false,
-    config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  "neovim/nvim-lspconfig",
+  lazy = false,
+  config = function()
+    -- Capabilities (e.g., for nvim-cmp)
+    local caps = require("cmp_nvim_lsp").default_capabilities()
 
-      local lspconfig = require("lspconfig")
-      -- old: tsserver to ts_ls.setup
-      -- remove: solargraph
-      -- install and configure: html??, markdownlint
-      -- python: **ruff
-      lspconfig.bashls.setup({
-        capabilities = capabilities,
-        filetypes = { "sh", "zsh" }, -- Enable for shell and zsh scripts
-      })
+    -- Make sure Containerfile/ Dockerfile names detect as 'dockerfile'
+    vim.filetype.add({
+      pattern = {
+        ["[Dd]ockerfile.*"] = "dockerfile",
+        ["Containerfile.*"] = "dockerfile",
+      },
+    })
 
-      lspconfig.dockerls.setup({
-        capabilities = capabilities,
-        filetypes = { "dockerfile", "Containerfile", "Dockerfile" },
-      })
+    -- Define per-server configs (same options you used in .setup)
+    vim.lsp.config("bashls", {
+      capabilities = caps,
+      filetypes = { "sh", "zsh" },
+    })
 
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.yamlls.setup({
-        capabilities = capabilities,
-        settings = {
-          yaml = {
-            -- schemas = {
-            -- 	kubernetes = "/*.yaml",
-            -- 	["https://json.schemastore.org/github-action.json"] = "/.github/workflows/*",
-            -- },
-            validate = true,
-            format = { enable = true },
-            hover = true,
-          },
+    vim.lsp.config("dockerls", {
+      capabilities = caps,
+      -- the buffer 'filetype' is still "dockerfile"
+      filetypes = { "dockerfile" },
+    })
+
+    vim.lsp.config("lua_ls", {
+      capabilities = caps,
+      settings = {
+        Lua = { diagnostics = { globals = { "vim" } } },
+      },
+    })
+
+    vim.lsp.config("pyright", {
+      capabilities = caps,
+    })
+
+    vim.lsp.config("yamlls", {
+      capabilities = caps,
+      settings = {
+        yaml = {
+          validate = true,
+          format = { enable = true },
+          hover = true,
+          -- schemas = { ... } -- keep these if you want them
         },
-      })
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-      vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {})
-      vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
-      vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
-      -- vim.diagnostic.config({virtual_text = { current_line = true }})
-      vim.diagnostic.config({ virtual_lines = { current_line = true } })
-    end,
-  },
+      },
+    })
+
+    -- (Optional) Add more servers you noted:
+    -- vim.lsp.config("html", { capabilities = caps })
+    -- vim.lsp.config("marksman", { capabilities = caps }) -- Markdown LSP
+    -- vim.lsp.config("ruff", { capabilities = caps })     -- Python linter LSP
+
+    -- Enable the servers
+    for _, s in ipairs({ "bashls", "dockerls", "lua_ls", "pyright", "yamlls" }) do
+      vim.lsp.enable(s)
+    end
+    -- If you added html/marksman/ruff above, enable them too.
+
+    -- Buffer-local keymaps when an LSP attaches
+    vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+        local buf = args.buf
+        local opts = { buffer = buf, silent = true }
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+      end,
+    })
+
+    -- Diagnostics UI (unchanged)
+    -- vim.diagnostic.config({ virtual_text = { current_line = true } })
+    vim.diagnostic.config({ virtual_lines = { current_line = true } })
+  end,
+},
+
 }
