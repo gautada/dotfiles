@@ -35,7 +35,7 @@ alias pms="podman-stop"
 # alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 
 podman-build() {
- local image="$(pwd | awk -F'/' '{print $NF}')"
+ local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  # podman build use the `.args` file to set params
  local argfile=".args"
  touch "${argfile}"
@@ -46,12 +46,13 @@ podman-build() {
 }
 
 podman-run() {
- local image="$(pwd | awk -F'/' '{print $NF}')"
+ # local image="$(pwd | awk -F'/' '{print $NF}')"
  # podman build use the `.env` file to set params
+ local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  local envfile=".env"
  touch "${envfile}"
  echo "----------------------------------------"
- local _cmd="podman run --env-file ${envfile} --detach --name ${image} --publish 8080:8080 --rm"
+ local _cmd="podman run --env-file ${envfile} --name ${image} --publish 8080:8080 --rm ${@}"
  podman volume ls -q | while IFS= read -r _volume; do
   _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
  done
@@ -61,7 +62,8 @@ podman-run() {
 }
 
 podman-exec() {
- local image="$(pwd | awk -F'/' '{print $NF}')"
+ # local image="$(pwd | awk -F'/' '{print $NF}')"
+ local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  echo "----------------------------------------"
  local _cmd="podman exec --interactive --tty ${image} ${@}"
  echo "${_cmd}"
@@ -69,7 +71,8 @@ podman-exec() {
 }
 
 podman-stop() {
- local image="$(pwd | awk -F'/' '{print $NF}')"
+ # local image="$(pwd | awk -F'/' '{print $NF}')"
+ local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  echo "----------------------------------------"
  local _cmd="podman stop ${image}"
  echo "${_cmd}"
