@@ -6,8 +6,8 @@ dotfiles_does_not_exist "${HOME}/.gitconfig"
 dotfiles_does_not_exist "${HOME}/.git-credentials"
 
 CONFIG_FOLDER="${HOME}/.config/git"
-TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/git"
-dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+# TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/git"
+# dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
 
 export GIT_CONFIG="${CONFIG_FOLDER}/config"
 dotfiles_file_exists $GIT_CONFIG
@@ -15,11 +15,11 @@ dotfiles_file_exists $GIT_CONFIG
 export GIT_CREDENTIALS="${CONFIG_FOLDER}/credentials"
 dotfiles_file_exists $GIT_CREDENTIALS
 
-GIT_AUTH_CERT="${CONFIG_FOLDER}/auth.crt"
-dotfiles_file_exists $GIT_AUTH_CERT
-
-GIT_AUTH_KEY="${CONFIG_FOLDER}/auth.key"
-dotfiles_file_exists $GIT_AUTH_KEY
+# GIT_AUTH_CERT="${CONFIG_FOLDER}/auth.crt"
+# dotfiles_file_exists $GIT_AUTH_CERT
+# 
+# GIT_AUTH_KEY="${CONFIG_FOLDER}/auth.key"
+# dotfiles_file_exists $GIT_AUTH_KEY
 
 # GIT Environment Aliases
 alias gs='git status'
