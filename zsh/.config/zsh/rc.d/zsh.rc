@@ -11,13 +11,13 @@
 # export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Load private environment variables
-PRIVATE_ENV="${HOME}/.local/share/dotfiles/private/zsh/env"
-if [ ! -f $PRIVATE_ENV ] ; then 
-  zshlog "Error" "Private environment variables file ${PRIVATE_ENV} must exist."
-else
-  # export $(grep -v '^#' $PRIVATE_ENV | xargs)
-  source "${PRIVATE_ENV}"
-fi
+# PRIVATE_ENV="${HOME}/.local/share/dotfiles/private/zsh/env"
+# if [ ! -f $PRIVATE_ENV ] ; then 
+#   zshlog "Error" "Private environment variables file ${PRIVATE_ENV} must exist."
+# else
+#   # export $(grep -v '^#' $PRIVATE_ENV | xargs)
+#   source "${PRIVATE_ENV}"
+# fi
 
 
 

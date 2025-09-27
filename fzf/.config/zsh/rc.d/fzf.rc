@@ -14,8 +14,8 @@ if [ ! -e "${FZF_APP}" ] ; then
 fi
 
 CONFIG_FZF="${HOME}/.config/fzf"
-TARGET_FZF="${HOME}/.local/share/dotfiles/public/fzf"
-dotfiles_config_folder $CONFIG_FZF $TARGET_FZF
+# TARGET_FZF="${HOME}/.local/share/dotfiles/public/fzf"
+# dotfiles_config_folder $CONFIG_FZF $TARGET_FZF
 
 source <(/opt/homebrew/bin/fzf --zsh) 
 
