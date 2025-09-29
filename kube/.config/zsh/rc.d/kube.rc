@@ -10,12 +10,12 @@ fi
 
 DEFAULT_FOLDER="${HOME}/.kube"
 CONFIG_FOLDER="${HOME}/.config/kube"
-if [ ! -e $DEFAULT_FOLDER ] ; then
- /bin/ln -fsv $CONFIG_FOLDER $DEFAULT_FOLDER
-fi
-if [ ! -L $DEFAULT_FOLDER ] ; then
- zshlog "Error" "Setup Error: The path ${1} must be a symlink."
-fi
+# if [ ! -e $DEFAULT_FOLDER ] ; then
+#  /bin/ln -fsv $CONFIG_FOLDER $DEFAULT_FOLDER
+# fi
+# if [ ! -L $DEFAULT_FOLDER ] ; then
+#  zshlog "Error" "Setup Error: The path ${1} must be a symlink."
+# fi
 ACTUAL=$(readlink "${DEFAULT_FOLDER}")
 if [ "${ACTUAL}" != "${CONFIG_FOLDER}" ] ; then
   MSG="The path '${DEFAULT_FOLDER}' is a symlink and points"
@@ -23,9 +23,9 @@ if [ "${ACTUAL}" != "${CONFIG_FOLDER}" ] ; then
   zshlog "Error" "${MSG}"
 fi
 TARGET_FOLDER="${HOME}/.local/share/dotfiles/private/kube"
-dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
-export KUBECONFIG="${HOME}/.config/kube/config"
-dotfiles_file_exists $KUBECONFIG
+# dotfiles_config_folder $CONFIG_FOLDER $TARGET_FOLDER
+# export KUBECONFIG="${HOME}/.config/kube/config"
+# dotfiles_file_exists $KUBECONFIG
 
 # DEFAULT_CACHE_FOLDER="${DEFAULT_FOLDER}/cache"
 # TARGET_CACHE_FOLDER="${HOME}/.cache/kube"
