@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ROLES_DIR="${HOME}/.cache/ansible/roles"
+/bin/mkdir -p "${ROLES_DIR}"
+
+COLLECTIONS_DIR="${HOME}/.cache/ansible/collections"
+/bin/mkdir -p "${COKKECTION_DIR}"
