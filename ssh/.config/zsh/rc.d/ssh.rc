@@ -10,4 +10,6 @@ CONFIG_FOLDER="${HOME}/.config/ssh"
 SSH_CONFIG="${CONFIG_FOLDER}/config"
 dotfiles_file_exists $SSH_CONFIG
 
-
+alias ssh="/usr/bin/ssh -F ${HOME}/.config/ssh/config"
+alias scp="/usr/bin/scp -F ${HOME}/.config/ssh/config"
+alias sftp="/usr/bin/sftp -F ${HOME}/.config/ssh/config"

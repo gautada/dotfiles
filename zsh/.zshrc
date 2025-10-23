@@ -96,10 +96,10 @@ export XDG_SCRIPTS_HOME="${HOME}/.scripts"
 mkdir -p "${XDG_SCRIPTS_HOME}"
 
 CONFIG_ZSH="${XDG_CONFIG_HOME}/zsh"
-TARGET_ZSH="${XDG_DATA_HOME}/dotfiles/public/zsh"
-dotfiles_config_folder "${CONFIG_ZSH}" "${TARGET_ZSH}"
+# TARGET_ZSH="${XDG_DATA_HOME}/dotfiles/public/zsh"
+# dotfiles_config_folder "${CONFIG_ZSH}" "${TARGET_ZSH}"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
-RC_FILE="${CONFIG_FOLDER}/rc"
+# RC_FILE="${CONFIG_FOLDER}/rc"
 dotfiles_file_exists $RC_FILE
 
 # Load all of the drop-ins

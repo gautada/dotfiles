@@ -101,7 +101,7 @@ TARGET_ZSH="../local/share/dotfiles/public/zsh/.config/zsh"
 # dotfiles_config_folder "${CONFIG_ZSH}" "${TARGET_ZSH}"
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 RC_FILE="${CONFIG_ZSH}/rc"
-dotfiles_file_exists $RC_FILE
+# dotfiles_file_exists $RC_FILE
 
 # Load all of the drop-ins
 for rcfile in ~/.config/zsh/rc.d/*.rc; do

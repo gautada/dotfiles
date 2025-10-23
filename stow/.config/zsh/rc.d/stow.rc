@@ -1,0 +1,61 @@
+#!/bin/bash
+# This is a script to setup the aliases and functions to help manage the
+# environment via stow
+
+dotfiles_pull() {
+ local CURRENT_DIR
+ CURRENT_DIR="$(pwd)"
+ echo "[INFO] Current directory: ${current_dir}"
+ cd "${HOME}/.local/share/dotfiles/public" || exit 1;
+ git pull
+ echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+ cd "${HOME}/.local/share/dotfiles/private" || exit 2;
+ git pull
+ echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+ source "${HOME}"/.config/zsh/rc
+ cd "${CURRENT_DIR}" || exit 3;
+}
+
+dotfiles_push() { 
+ dotfiles_pull
+ rc="${?}"
+ if [ "${rc}" -ne 0 ] ; then
+  echo "[ERR] Dotfiles pull failed"
+  return 1
+ fi
+ current_dir="$(pwd)" || exit 1;
+ echo "[INFO] Current directory: ${current_dir}"
+ cd "${HOME}/.local/share/dotfiles/public" || exit 2;
+ git add .
+ git commit -am "Uploading latest dotfiles"
+ git push
+ echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+ cd "${HOME}/.local/share/dotfiles/private" || exit 3;
+ git add .
+ git commit -am "Uploading latest dotfiles"
+ git push
+ echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+ cd "${current_dir}" || exit 4;
+}
+
+dotfiles_bootstrap() {
+  local DOTFILES_DIR="${HOME}/.local/share/dotfiles"
+  local DF_PUBLIC_DIR="${DOTFILES_DIR}/public"
+  if [ ! -d "${DF_PUBLIC_DIR}" ] ; then
+    cd "${DOTFILES_DIR}" || exit 1
+    git clone https://github.com/gautada/dotfiles.git public
+  fi
+  cd "${DF_PUBLIC_DIR}" || exit 1
+  stow --dir="${DF_PUBLIC_DIR}" --no-folding \
+       --target="${HOME}" --verbose --restow *
+  local DF_PRIVATE_DIR="${DOTFILES_DIR}/private"
+  cd "${PRIVATE_DIR}" || exit 2
+  stow --dir="${DF_PRIVATE_DIR}" --no-folding \
+       --target="${HOME}" --verbose --restow *
+}
+
+
+alias dfl="dotfiles_pull"
+alias dfh="dotfiles_push"
+alias dfb="dotfiles_bootstrap"
+

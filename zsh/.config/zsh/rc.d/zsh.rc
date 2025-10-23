@@ -30,38 +30,38 @@ export ZSH_SESSIONDIR=~/.cache/zsh/sessions
 # Reload zsh shell
 alias reload="source ~/.config/zsh/rc"
 
-zsh_environment_refresh() {
- current_dir="$(pwd)"
- echo "[INFO] Current directory: ${current_dir}"
- cd "${HOME}/.local/share/dotfiles/public"
- git pull
- echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
- cd "${HOME}/.local/share/dotfiles/private"
- git pull
- echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
- reload
- cd "${current_dir}"
-}
+# zsh_environment_refresh() {
+#  current_dir="$(pwd)"
+#  echo "[INFO] Current directory: ${current_dir}"
+#  cd "${HOME}/.local/share/dotfiles/public"
+#  git pull
+#  echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+#  cd "${HOME}/.local/share/dotfiles/private"
+#  git pull
+#  echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+#  reload
+#  cd "${current_dir}"
+# }
+# 
+# zsh_environment_upload() {
+#  current_dir="$(pwd)"
+#  echo "[INFO] Current directory: ${current_dir}"
+#  cd "${HOME}/.local/share/dotfiles/public"
+#  git add .
+#  git commit -am "Uploading latest dotfiles"
+#  git push
+#  echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
+#  cd "${HOME}/.local/share/dotfiles/private"
+#  git add .
+#  git commit -am "Uploading latest dotfiles"
+#  git push
+#  echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
+#  refresh
+#  cd "${current_dir}"
+# }
 
-zsh_environment_upload() {
- current_dir="$(pwd)"
- echo "[INFO] Current directory: ${current_dir}"
- cd "${HOME}/.local/share/dotfiles/public"
- git add .
- git commit -am "Uploading latest dotfiles"
- git push
- echo "[INFO] Git pull (PUBLIC) exit value: ${?}"
- cd "${HOME}/.local/share/dotfiles/private"
- git add .
- git commit -am "Uploading latest dotfiles"
- git push
- echo "[INFO] Git pull (PRIVATE) exit value: ${?}"
- refresh
- cd "${current_dir}"
-}
-
-alias refresh="zsh_environment_refresh"
-alias upload="zsh_environment_upload"
+# alias refresh="zsh_environment_refresh"
+# alias upload="zsh_environment_upload"
 # *********COMPLETIONS **************
 # Set the new .zcomp directory
 ZSH_COMPDIR=~/.cache/zsh/comp
