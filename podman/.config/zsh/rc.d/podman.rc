@@ -34,6 +34,18 @@ alias pms="podman-stop"
 # alias pmr="podman-run $(pwd | awk -F'/' '{print $NF}')"
 # alias pe="podman-exec $(pwd | awk -F'/' '{print $NF}')"
 
+podman-install() {
+  # Run a local version of podman on the mac using `container` to run
+  # the podman container.
+  /opt/homebrew/bin/container run --detach --name podman \
+    --publish 2375:2375 --publish 8080:8080 --publish 8443:8443 --rm \
+    --volume "${HOME}/.cache/containers/backup /mnt/volumes/backup" \
+    --volume "${HOME}/.cache/containers/configuration /mnt/volumes/configuration" \
+    --volume "${HOME}/.cache/containers/data /mnt/volumes/data" \
+    --volume "${HOME}/.cache/containers/secrets /mnt/volumes/secrets" \
+  docker.io/gautada/podman:latest
+}
+
 podman-build() {
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  # podman build use the `.args` file to set params
@@ -46,8 +58,6 @@ podman-build() {
 }
 
 podman-run() {
- # local image="$(pwd | awk -F'/' '{print $NF}')"
- # podman build use the `.env` file to set params
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  local envfile=".env"
  touch "${envfile}"
