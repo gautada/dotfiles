@@ -41,7 +41,7 @@ podman-install() {
     --publish 2375:2375 --publish 8080:8080 --publish 8443:8443 --rm \
     --volume "${HOME}/.cache/containers/backup /mnt/volumes/backup" \
     --volume "${HOME}/.cache/containers/configuration /mnt/volumes/configuration" \
-    --volume "${HOME}/.cache/containers/data /mnt/volumes/data" \
+    --volume "${HOME}/.cache/containers/data /mnt/volumes/container" \
     --volume "${HOME}/.cache/containers/secrets /mnt/volumes/secrets" \
   docker.io/gautada/podman:latest
 }
@@ -51,9 +51,11 @@ podman-build() {
  # podman build use the `.args` file to set params
  local argfile=".args"
  touch "${argfile}"
- echo "----------------------------------------"
- local _cmd="podman build --build-arg-file ${argfile} --file Containerfile --tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} ${@} ."
+ local _cmd="podman build --build-arg-file ${argfile} --file Containerfile "
+ _cmd+="--network host --tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} "
+ _cmd+="${@} ."
  echo "${_cmd}"
+ echo "----------------------------------------"
  eval "${_cmd}"
 }
 
