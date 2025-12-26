@@ -47,12 +47,17 @@ podman-install() {
 }
 
 podman-build() {
+ local OS="$(uname -s)"
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  # podman build use the `.args` file to set params
  local argfile=".args"
  touch "${argfile}"
  local _cmd="podman build --build-arg-file ${argfile} --file Containerfile "
- _cmd+="--network host --tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} "
+ echo "***** Special Build Commands for MacOS:container(cli)"
+ if [ "Darwin"=="${OS}" ] ; then 
+  _cmd+="--network host "
+ fi
+ _cmd+="--tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} "
  _cmd+="${@} ."
  echo "${_cmd}"
  echo "----------------------------------------"
@@ -63,13 +68,17 @@ podman-run() {
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  local envfile=".env"
  touch "${envfile}"
- echo "----------------------------------------"
  local _cmd="podman run --env-file ${envfile} --name ${image} --publish 8080:8080 --rm ${@}"
  podman volume ls -q | while IFS= read -r _volume; do
   _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
  done
+ echo "***** Special Build Commands for MacOS:container(cli)"
+ if [ "Darwin"=="${OS}" ] ; then 
+  _cmd+="--network host "
+ fi 
  _cmd+=" docker.io/gautada/${image}:dev"
  echo "${_cmd}"
+ echo "----------------------------------------"
  eval "${_cmd}"
 }
 
