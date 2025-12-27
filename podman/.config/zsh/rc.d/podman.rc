@@ -49,13 +49,23 @@ podman-install() {
 podman-build() {
  local OS="$(uname -s)"
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
- # podman build use the `.args` file to set params
+ # podman will build use the `.args` file to set params
  local argfile=".args"
- touch "${argfile}"
- local _cmd="podman build --build-arg-file ${argfile} --file Containerfile "
- echo "***** Special Build Commands for MacOS:container(cli)"
+ touch "${argfile}" 
+ # parse the args file if we want to use that 
+ build_args=()
+ while IFS= read -r line; do
+  [[ -z $line || $line == \#* ]] && continue
+  build_args+=(--build-arg "$line")
+ done < ".args" 
+ local _cmd=""
  if [ "Darwin"=="${OS}" ] ; then 
-  _cmd+="--network host "
+  echo "***** Special Build Commands for MacOS:container(cli)"
+  _cmd+="container build "
+  _cmd+="${build_args[@]} "
+ else
+  # Default podman
+  _cmd+="podman build --build-arg-file ${argfile} --file Containerfile "
  fi
  _cmd+="--tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} "
  _cmd+="${@} ."
@@ -68,14 +78,17 @@ podman-run() {
  local image="$(pwd | awk -F'/' '{print $(NF-1)}')"
  local envfile=".env"
  touch "${envfile}"
- local _cmd="podman run --env-file ${envfile} --name ${image} --publish 8080:8080 --rm ${@}"
- podman volume ls -q | while IFS= read -r _volume; do
-  _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
- done
- echo "***** Special Build Commands for MacOS:container(cli)"
+ local _cmd="" 
  if [ "Darwin"=="${OS}" ] ; then 
-  _cmd+="--network host "
- fi 
+  echo "***** Special Run Commands for MacOS:container(cli)"
+  _cmd+="container run "
+ else
+  _cmd+="podman run "
+  podman volume ls -q | while IFS= read -r _volume; do
+   _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
+  done
+ fi
+ _cmd+="--env-file ${envfile} --name ${image} --publish 8080:8080 --rm ${@}"
  _cmd+=" docker.io/gautada/${image}:dev"
  echo "${_cmd}"
  echo "----------------------------------------"
