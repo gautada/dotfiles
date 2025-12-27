@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 cd "${HOME}/.local/share/dotfiles/public" || exit 1
 stow --dir="${HOME}/.local/share/dotfiles/public" --no-folding \
