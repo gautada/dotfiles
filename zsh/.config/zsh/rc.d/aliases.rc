@@ -5,4 +5,29 @@
 # Shell Aliases
 alias ls="ls -laH --color"
 
+create_secret() {
+  local _key="${1}"
+  if [[ -z "${_key}" ]] ; then 
+    vared -p "Key: " _key
+  fi
 
+  # security unlock-keychain -p "zodiachighballwarrantypanic" "$HOME/Library/Keychains/login.keychain-db"
+  local _secret="${2}"
+  if [[ -z "${_secret} ]] ; then
+    printf "Secret: "
+    read -rs _secret
+    echo
+  fi
+
+  /usr/bin/security delete-generic-password -a "${USER}" \
+   -s "${_key}" 2>/dev/null ; security add-generic-password -a "${USER}" \
+   -s "${_key}" -w "${_secret}"
+}
+
+get_secret() {
+  local _key=::"${1}"
+  if [[ -z "${_key}" ]] ; then 
+    vared -p "Key: " _key
+  fi
+  security find-generic-password -a "${USER}" -s "${_key}" -w
+}
