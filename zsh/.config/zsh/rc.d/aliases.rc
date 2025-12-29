@@ -13,7 +13,7 @@ create_secret() {
 
   # security unlock-keychain -p "zodiachighballwarrantypanic" "$HOME/Library/Keychains/login.keychain-db"
   local _secret="${2}"
-  if [[ -z "${_secret} ]] ; then
+  if [[ -z "${_secret}" ]] ; then
     printf "Secret: "
     read -rs _secret
     echo
