@@ -59,14 +59,15 @@ podman-build() {
   build_args+=(--build-arg "$line")
  done < ".args" 
  local _cmd=""
- if [ "Darwin"=="${OS}" ] ; then 
-  echo "***** Special Build Commands for MacOS:container(cli)"
-  _cmd+="container build "
-  _cmd+="${build_args[@]} "
- else
+ # ***** REMOVED MacOS Container Support ****
+ # if [ "Darwin"=="${OS}" ] ; then 
+ #  echo "***** Special Build Commands for MacOS:container(cli)"
+ #  _cmd+="container build "
+ #  _cmd+="${build_args[@]} "
+ # else
   # Default podman
   _cmd+="podman build --build-arg-file ${argfile} --file Containerfile "
- fi
+ # fi
  _cmd+="--tag ${PODMAN_REGISTRY}/${image}:${PODMAN_BUILD_TAG} "
  _cmd+="${@} ."
  echo "${_cmd}"

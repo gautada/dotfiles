@@ -25,7 +25,7 @@ create_secret() {
 }
 
 get_secret() {
-  local _key=::"${1}"
+  local _key="${1}"
   if [[ -z "${_key}" ]] ; then 
     vared -p "Key: " _key
   fi
