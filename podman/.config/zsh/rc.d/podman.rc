@@ -84,11 +84,11 @@ podman-run() {
  #  echo "***** Special Run Commands for MacOS:container(cli)"
  #  _cmd+="container run "
  # else
- _cmd+="podman run"
+ _cmd+="podman run "
  podman volume ls -q | while IFS= read -r _volume; do
   _cmd+=" --volume ${_volume}:/mnt/volumes/${_volume:l}"
  done
- #fi
+ # fi
  _cmd+=" --env-file ${envfile} --name ${image} --publish 8080:8080 --rm ${@}"
  _cmd+=" docker.io/gautada/${image}:dev"
  echo "${_cmd}"

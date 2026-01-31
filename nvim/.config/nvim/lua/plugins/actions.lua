@@ -1,4 +1,4 @@
--- # Plug-In Spec: Actions
+--  Plu-In Spec: Actions
 --
 -- This is a list of plugins that provide action in the editor for the user.
 --
@@ -18,18 +18,34 @@ return {
   --
   -- - To test that treesitter is installed `:TSModuleInfo`
   --
+  --  {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   build = ":TSUpdate",
+  --   config = function()
+  --     local config = require("nvim-treesitter.configs")
+  --     config.setup({
+  --       auto_install = true,
+  --       highlight = { enable = true },
+  --       indent = { enable = true },
+  --     })
+  --   end,
+  -- },
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      local config = require("nvim-treesitter.configs")
-      config.setup({
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  event = { "BufReadPost", "BufNewFile" },
+  config = function()
+    local ok, ts = pcall(require, "nvim-treesitter.configs")
+    if not ok then
+      return
     end
-  },
+    ts.setup({
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end,
+},
 
 
   -- ## Comment

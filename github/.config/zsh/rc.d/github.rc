@@ -1,0 +1,5 @@
+
+github_watch_action() {
+  gh run watch "$(gh run list --commit $(git rev-parse HEAD) \
+  --json databaseId --jq '.[0].databaseId')"
+}
