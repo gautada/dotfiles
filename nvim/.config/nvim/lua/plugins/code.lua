@@ -47,6 +47,9 @@
 -- - [yamlfmt](https://github.com/google/yamlfmt)
 --   - `brew install yamlfmt`
 return {
+  {
+    "nvimtools/none-ls.nvim"
+  },{
   "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
@@ -59,15 +62,16 @@ return {
       return vim.fn.executable(bin) == 1
     end
 
-    null_ls.setup({
-      sources = {
+    local sources = {
         -- Diagnostics (only add if executable is present)
         has_exec("hadolint")      and diagnostics.hadolint      or nil,
         -- has_exec("luacheck")      and diagnostics.luacheck      or nil,
-        has_exec("markdownlint")  and diagnostics.markdownlint  or nil,
+        -- Removed vi AI reccomendation
+        -- has_exec("markdownlint")  and diagnostics.markdownlint  or nil,
         -- has_exec("ruff")          and diagnostics.ruff          or nil,
         -- has_exec("shellharden")   and diagnostics.shellharden   or nil,
         has_exec("yamllint")      and diagnostics.yamllint      or nil,
+        enable_ruff and has_exec("ruff") and diagnostics.ruff or nil,
 
         -- Formatting
         has_exec("markdownlint")  and formatting.markdownlint   or nil,
@@ -75,16 +79,37 @@ return {
         has_exec("shfmt")         and formatting.shfmt.with({
           extra_args = { "-i", "2" },
         }) or nil,
+        has_exec("black")         and formatting.black         or nil,
         has_exec("stylua")        and formatting.stylua         or nil,
         has_exec("yamlfmt")       and formatting.yamlfmt        or nil,
         -- has_exec("yamlfix")    and formatting.yamlfix        or nil, -- optional
-      },
-    })
+    }
+
+    -- remove nils (none-ls can be picky depending on version)
+    sources = vim.tbl_filter(function(s) return s ~= nil end, sources)
+
+    null_ls.setup({ sources = sources })
 
     -- Keymap to format using LSP
     vim.keymap.set("n", "<leader>gf", function()
       vim.lsp.buf.format({ async = true })
     end, { desc = "Format with LSP" })
+    
+    -- ----------------------------
+    -- Ruff LSP Setup (native)
+    -- ----------------------------
+    -- @TO-DO: We want to try an move these settings to global and/org
+    -- pyproject.toml
+    if vim.lsp.config and vim.lsp.enable then
+      vim.lsp.config('ruff', {
+        init_options = {
+          settings = {
+            logLevel = 'info',
+            lineLength = 88,
+          }
+        }
+      })
+      vim.lsp.enable('ruff')
+    end
   end,
-}
-
+},}

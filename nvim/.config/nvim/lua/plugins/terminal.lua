@@ -6,8 +6,8 @@
       require("toggleterm").setup{
         size = 20,
         direction = 'float',
-        -- shell = '/bin/zsh -l -c ". ~/.zshrc"',
-    	  float_opts = {
+        shell = "/bin/zsh", -- Launches zsh, sources your rc, then starts a login shell
+        float_opts = {
           border = 'single',
           width = 120,
           height = 35,
