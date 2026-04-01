@@ -60,6 +60,34 @@ stow --verbose --target="${HOME}" \
 --dir="${HOME}/.local/share/dotfiles/public" -R */
 ```
 
+## Ansible
+
+These dotfiles include an Ansible control-node configuration under `~/.config/ansible/`.
+
+### Install
+
+```sh
+pipx install ansible-core
+# or
+brew install ansible
+```
+
+After installing, restow the ansible package if needed:
+
+```sh
+stow --target="$HOME" ansible
+```
+
+### Verify
+
+A simple `ping` playbook lives at `~/.config/ansible/playbooks/ping.yml`.
+
+```sh
+ansible-playbook ~/.config/ansible/playbooks/ping.yml
+```
+
+This uses the bundled inventory (`~/.config/ansible/inventory/hosts`) and should return `pong` for `localhost`.
+
 ## zsh
 
 This is my personal zsh configuration.  While I am sure I have pulled from
