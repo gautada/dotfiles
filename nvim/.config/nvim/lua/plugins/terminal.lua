@@ -1,4 +1,26 @@
- return {
+-- Plugin Spec: Terminal
+--
+-- Provides a floating pop-up terminal inside Neovim.
+--
+-- ## Plug-In
+--
+-- - [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)
+--
+-- ## Keybindings
+--
+-- | Mode         | Keys    | Action                        |
+-- | ------------ | ------- | ----------------------------- |
+-- | Normal       | <C-t>   | Toggle the floating terminal  |
+-- | Terminal     | <C-t>   | Toggle (close) the terminal   |
+--
+-- ## Configuration Notes
+--
+-- - Shell: zsh (`/bin/zsh`)
+-- - Direction: float (120×35)
+-- - Auto-scroll: enabled
+-- - Starts in insert mode when opened
+
+return {
    { 
     "akinsho/toggleterm.nvim",
     version = "v2.*",  -- Optionally specify a version
