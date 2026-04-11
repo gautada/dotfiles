@@ -26,7 +26,14 @@ Provides functionality for file management.
 
 ### Terminal(terminal.lua)
 
-Provides pop-up terminal.
+Provides a floating pop-up terminal via `toggleterm.nvim`.
+
+| Mode     | Keys  | Action                       |
+| -------- | ----- | ---------------------------- |
+| Normal   | `<C-t>` | Toggle the floating terminal |
+| Terminal | `<C-t>` | Close the floating terminal  |
+
+**Configuration:** floating window (120 × 35), zsh shell, auto-scroll, starts in insert mode.
 
 ### Artificial Intelligence(ai.lua)
 
