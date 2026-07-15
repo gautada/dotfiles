@@ -1,14 +1,17 @@
 #!/bin/zsh
 
-cd "${HOME}/.local/share/dotfiles/public" || exit 1
-git pull --rebase
-stow --dir="${HOME}/.local/share/dotfiles/public" --no-folding \
-     --target="${HOME}" --verbose --restow */
-
-PRIVATE_DIR="${HOME}/.local/share/dotfiles/private"
-if [ -d "${PRIVATE_DIR}" ] ; then 
- cd "${PRIVATE_DIR}" || exit 2
- git pull --rebase
- stow --dir="${PRIVATE_DIR}" --no-folding \
-      --target="${HOME}" --verbose --restow */
-fi
+DOTFILES_DIR="${HOME}/.local/share/dotfiles"
+cd "${DOTFILES_DIR}"
+for source in public private ; do
+  STOW_DIR="${DOTFILES_DIR}/${source}"
+  if [ -d "${STOW_DIR}" ] ; then
+    touch "${STOW_DIR}/.stow"
+    cd "${STOW_DIR}"
+    /usr/bin/git pull --rebase
+    /opt/homebrew/bin/stow --dir="${STOW_DIR}" \
+                           --target="${HOME}" \
+			   --verbose \
+			   --restow */
+  fi
+done
+ 

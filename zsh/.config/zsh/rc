@@ -109,6 +109,26 @@ for rcfile in ~/.config/zsh/rc.d/*.rc; do
  [ -r "$rcfile" ] && source "$rcfile"
 done
 
+# # An `exit` inside a sourced drop-in acts like `return`.
+# setopt LOCAL_EXIT
+# typeset -a failed_dropins=()
+#
+# for dropin in "$HOME/.config/zsh/rc.d/"*.rc(N); do
+#     if source "$dropin"; then
+#         :
+#     else
+#         status=$?
+#         print -u2 -- "WARNING: drop-in failed: $dropin (exit $status)"
+#         failed_dropins+=("$dropin:$status")
+#     fi
+# done
+# 
+# if (( ${#failed_dropins[@]} > 0 )); then
+#     print -u2 -- "Completed with ${#failed_dropins[@]} failed drop-in(s):"
+#     printf '  %s\n' "${failed_dropins[@]}" >&2
+# fi
+
+
 # Un-define colors for logging
 unset UNK
 unset INF
