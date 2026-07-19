@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# `~/bin/configure-container` pulls the templates and controls down from
+# the `gautada/cicd` repository to update the container source directory.
+
+curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | sh
+
