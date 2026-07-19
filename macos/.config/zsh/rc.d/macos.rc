@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+toggle-dotfiles() {
+  local current=$(defaults read com.apple.finder AppleShowAllFiles 2>/dev/null)
+  
+  if [ "$current" = "1" ]; then
+    defaults write com.apple.finder AppleShowAllFiles false
+    echo "Dotfiles hidden"
+  else
+    defaults write com.apple.finder AppleShowAllFiles true
+    echo "Dotfiles shown"
+  fi
+  
+  killall Finder
+}
+
+alias DD=toggle-dotfiles
