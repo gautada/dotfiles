@@ -21,10 +21,15 @@ dotfiles_file_exists $GIT_CREDENTIALS
 # GIT_AUTH_KEY="${CONFIG_FOLDER}/auth.key"
 # dotfiles_file_exists $GIT_AUTH_KEY
 
+# Set the git default pull behavior to rebase
+"$(command -v git)" config --global pull.rebase true
+
 # GIT Environment Aliases
 alias gs='git status'
 alias ga='git add'
 alias gp='git push'
+alias gup='git pull --rebase'
+alias gc='git commit -am'
 
 # Less frequently used git aliases
 # alias gpo='git push origin'
@@ -33,7 +38,6 @@ alias gp='git push'
 # alias gr='git branch -r'
 # alias gplo='git pull origin'
 # alias gb='git branch '
-alias gc='git commit -am'
 # alias gd='git diff'
 # alias gco='git checkout '
 # alias gl='git log'
