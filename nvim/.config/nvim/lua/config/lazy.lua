@@ -32,5 +32,36 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false },
+})
+
+-- Silently sync plugins (install/update/clean) once a week, so updates just
+-- happen in the background instead of requiring a manual `:Lazy` + `U`.
+local function auto_sync_plugins()
+  local stamp_file = vim.fn.stdpath("data") .. "/lazy-auto-sync"
+  local interval = 60 * 60 * 24 * 7 -- 1 week
+
+  local last = 0
+  local f = io.open(stamp_file, "r")
+  if f then
+    last = tonumber(f:read("*a")) or 0
+    f:close()
+  end
+
+  if os.time() - last < interval then
+    return
+  end
+
+  require("lazy").sync({ show = false })
+
+  local wf = io.open(stamp_file, "w")
+  if wf then
+    wf:write(tostring(os.time()))
+    wf:close()
+  end
+end
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = auto_sync_plugins,
 })

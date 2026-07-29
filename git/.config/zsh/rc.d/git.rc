@@ -17,7 +17,7 @@ dotfiles_file_exists $GIT_CREDENTIALS
 # GIT_AUTH_KEY="${CONFIG_FOLDER}/auth.key"
 # dotfiles_file_exists $GIT_AUTH_KEY
 
-i# Set the git default pull behavior to rebase
+# Set the git default pull behavior to rebase
 # "$(command -v git)" config --global pull.rebase true
 
 # GIT Environment Aliases
