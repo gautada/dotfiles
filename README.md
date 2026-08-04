@@ -86,7 +86,8 @@ A simple `ping` playbook lives at `~/.config/ansible/playbooks/ping.yml`.
 ansible-playbook ~/.config/ansible/playbooks/ping.yml
 ```
 
-This uses the bundled inventory (`~/.config/ansible/inventory/hosts`) and should return `pong` for `localhost`.
+This uses the bundled inventory (`~/.config/ansible/inventory/hosts`) and
+should return `pong` for `localhost`.
 
 ## zsh
 

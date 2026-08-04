@@ -1,3 +1,4 @@
 #!/bin/zsh
 
+alias pci="curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | bash"
 alias pcr="pre-commit run --all-files"
